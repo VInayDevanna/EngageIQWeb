@@ -16,13 +16,26 @@
         'completed': item.isIkigaiCompleted === true,
         'pending': item.isIkigaiCompleted === false,    
         'highlight': selectedEmpID === item.empID    
-      }" (click)="getEmployeeIkigaiData(item.empID)">
+      }" (click)="getEmployeeIkigaiData(item.empID,item.empName)">
         <img class="avatar" src={{item.empPicture}}>
         <p>{{item.empName.split(' ')[0]}}</p>
       </section>
     </ng-container>
     }
   </section>
+  @if(!isKigigaiDataAvailable){
+  <div class="feedback-reminder">
+    <img src="assets/exploding-head-emoji.png" alt="Exploding head emoji" class="emoji-icon">
+    <p class="message">
+      {{selectedEmpName}}, IKIGAI feedback has not been recorded yet.<br>
+      Please note that there are only <strong>{{noOfDaysLeftToCompleteIkigaiForCurrentMonth}} days</strong> left before
+      the IKIGAI sheet for {{DataDisplayingMonth}} is locked.
+    </p>
+    <a href="javascript:void(0)" (click)="setIkigaiDataAvailable()" class="record-link">Click here to record.</a>
+  </div>
+  }
+
+  @if(isKigigaiDataAvailable){
   <mat-tab-group mat-stretch-tabs="true">
     <mat-tab label="Feedbacks">
       <section class="section__ikigai">
@@ -130,7 +143,7 @@
                   {{ element.actionItemDesc }}
                 </td>
               </ng-container>
-            
+
               <!-- Category Column with Dropdown -->
               <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
@@ -144,7 +157,7 @@
                   </mat-form-field>
                 </td>
               </ng-container>
-            
+
               <!-- Added On Column -->
               <ng-container matColumnDef="addedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Added On</th>
@@ -152,7 +165,7 @@
                   {{ element.createdDate }}
                 </td>
               </ng-container>
-            
+
               <!-- Status Column with Dropdown -->
               <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
@@ -166,7 +179,7 @@
                   </mat-form-field>
                 </td>
               </ng-container>
-            
+
               <!-- Table Header and Rows -->
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -178,11 +191,12 @@
               <p>No Data Found</p>
             </div>
 
-            <!-- Pagination -->             
+            <!-- Pagination -->
             <div class="pagination-container">
-              <mat-paginator [pageSizeOptions]="[2, 5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
-            </div>              
-            
+              <mat-paginator [pageSizeOptions]="[2, 5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements"></mat-paginator>
+            </div>
+
           </section>
         </section>
       </section>
@@ -203,6 +217,7 @@
       </section>
     </mat-tab>
   </mat-tab-group>
+  }
 </section>
 
 

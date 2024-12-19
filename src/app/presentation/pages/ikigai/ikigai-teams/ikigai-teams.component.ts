@@ -50,7 +50,11 @@ export class IkigaiTeamsComponent implements OnInit {
   KeyImprovementsDisabled: boolean = false;
   improvementFeedbacksDisabled: boolean = false;
   selectedEmpID = '';
+  selectedEmpName = '';
   loader: boolean = false;
+  isKigigaiDataAvailable = false;
+  showIkigaiConfigScreen = false;
+  noOfDaysLeftToCompleteIkigaiForCurrentMonth = 5;
   // Expose the enum to your template
   PanelList = PanelList;
 
@@ -83,7 +87,7 @@ export class IkigaiTeamsComponent implements OnInit {
   //For Editor
   toolbar: Toolbar = [
     ['bold', 'italic'],
-    //['underline', 'strike'],
+    ['underline', 'strike'],
     ['bullet_list'],//'ordered_list', 
     //[{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
     ['text_color', 'background_color'],
@@ -165,7 +169,7 @@ export class IkigaiTeamsComponent implements OnInit {
               // Set the signal with the fetched navigation data
               this.teamMembers.set(response.teamMembers);
               //get Ikigai Data of first employee in the list
-              this.getEmployeeIkigaiData(response.teamMembers[0].empID);
+              this.getEmployeeIkigaiData(response.teamMembers[0].empID, response.teamMembers[0].empName);
             }
             else
               this.handleError('No Data Found');
@@ -182,9 +186,11 @@ export class IkigaiTeamsComponent implements OnInit {
       });
   }
 
-  getEmployeeIkigaiData(empID: string) {
+  getEmployeeIkigaiData(empID: string, empName: string) {
     this.loader = true;
+    this.isKigigaiDataAvailable = false;//defualt to false
     this.selectedEmpID = empID;
+    this.selectedEmpName = empName;
     this._ikigaiService.GetIkigaiActionItemsByUserID({ empID: empID, Month: this.DataQueriedMonth, Year: this.DataQueriedYear })
       .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
       .subscribe({
@@ -196,12 +202,12 @@ export class IkigaiTeamsComponent implements OnInit {
             this.goingGoodDisabled = true;
             this.IkigaiID = response.ikigaiID;
             this.KeyImprovementsDisabled = true;
-
+            this.isKigigaiDataAvailable = true;
             // Bind Action Items Tab Data
             this.ActionItems = response.actionItems;
-            this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);     
+            this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
             this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;           
+            this.dataSource.sort = this.sort;
           }
           else {
             this.goingGoodform.controls['content'].setValue('');
@@ -210,9 +216,9 @@ export class IkigaiTeamsComponent implements OnInit {
             this.KeyImprovementsDisabled = false;
             //Clear the Action Items Tab Data
             this.ActionItems = [];
-            this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);  
+            this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
             this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;          
+            this.dataSource.sort = this.sort;
           }
         },
         error: (error) => {
@@ -333,7 +339,7 @@ export class IkigaiTeamsComponent implements OnInit {
               this.goingGoodDisabled = false;
               this.KeyImprovementsDisabled = false;
               this.showSnackBar(response.remarks, SnackBarType.Success);
-              this.getEmployeeIkigaiData(this.selectedEmpID);
+              this.getEmployeeIkigaiData(this.selectedEmpID, this.selectedEmpName);
 
             }
             else {
@@ -444,5 +450,9 @@ export class IkigaiTeamsComponent implements OnInit {
   //Helper function for comparison (standard for sorting)
   compare(a: number | string, b: number | string, isAsc: boolean): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  setIkigaiDataAvailable() {
+    this.isKigigaiDataAvailable = true;
   }
 }
