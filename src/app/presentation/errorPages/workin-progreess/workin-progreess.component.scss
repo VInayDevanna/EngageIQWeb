@@ -1,0 +1,11 @@
+.working-progress{
+  .section__dashboard{
+    height: 50vh;
+    &__right{
+      text-align: center;
+      a{
+        color: white;
+      }
+    }
+  }
+}

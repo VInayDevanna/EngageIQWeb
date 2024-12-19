@@ -1,0 +1,18 @@
+@use "./app/styles/variables.scss" as *;
+@use "./app/styles/mixins.scss" as *;
+@use "./app/styles/typography.scss" as *;
+@use "./app/styles/layouts.scss" as *;
+@use "./app/styles/helpers.scss" as *;
+@use "./app/styles/angularmaterial.scss" as *;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+///Add below custom themes in angular.json file
+// "@angular/material/prebuilt-themes/azure-blue.css",
+// "baseHref": "/angular-ikigai-frontend-app/",

@@ -1,0 +1,174 @@
+<section class="section style-guide">
+  <header class="section__header bg-red">
+    <h1>Codename Pulse</h1>
+    <h6>Welcome to CSS Style Guide</h6>
+    <!-- <section class="section__header__description bg-black">
+      <button class="left--section disabled">test</button>
+      <h3 class="middle--section">Dashboard</h3>
+      <section class="right--section"></section>
+    </section> -->
+  </header>
+  <section class="padding bg-white">
+    <h3>Follow the steps to understand CSS style structure</h3>
+    <!-- <mat-stepper >
+      <mat-step>
+        <ng-template matStepLabel>Step 1</ng-template>
+        <ng-template matStepContent>
+          <p>This content was rendered lazily</p>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 2</ng-template>
+        <ng-template matStepContent>
+          <p>This content was also rendered lazily</p>
+          <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 3</ng-template>
+        <p>This content was rendered eagerly</p>
+        <button class="primary" matStepperPrevious>Back</button>
+      </mat-step>
+    </mat-stepper> -->
+    <mat-stepper orientation="vertical">
+      <mat-step>
+        <ng-template matStepLabel>Step 1: Variables.scss</ng-template>
+        <ng-template matStepContent>
+          <section class="container">
+            <dl>
+              <dt>Definition</dt>
+              <dd>Variables are used to store information that can be reused throughout your stylesheet. They make it easy to update your styles and keep your code clean and organized.</dd>
+              <dt>How to use</dt>
+              <dd>Variables are defined using the <strong>$</strong> symbol followed by the variable name and a value</dd>
+              <dt>Example</dt>
+              <dd>$primary-color: #007bff; defines a variable named primary-color with a value of #007bff</dd>
+              <dt>Naviagation Path</dt>
+              <dd>src > app > styles > variables.scss</dd>
+              <dd><img src="assets/developers-guide/style/variables.png" alt="variable file"></dd>
+              <dt>Properties</dt>
+              <dd>
+                <ul>
+                  <li><strong>Color: </strong> font-color, backgropund-color, border-coor</li>
+                  <li><strong>Font: </strong> font-family, font-size, font-weight</li>
+                  <li><strong>Spacing:</strong> padding, margin</li>
+                  <li><strong>Border: </strong>border-radius, border-width, border-color</li>
+                  <li><strong>Shadow: </strong>box-shadow, text-shadow</li>                  
+                </ul>
+              </dd>
+            </dl>
+          </section>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 2: Typography.scss</ng-template>
+        <ng-template matStepContent>
+          <section class="container">
+            <dl>
+              <dt>Definition</dt>
+              <dd>It is used to define all the HTML semantic element styles </dd>
+              <dt>Navigation Path</dt>
+              <dd>src > app > styles > typography.scss</dd>
+              <dd><img src="assets/developers-guide/style/typography.png" alt="typography file"></dd>
+              <dt>Properties</dt>
+              <dd>H1 to H6, P, span, buttons, anchor</dd>
+            </dl>
+          </section>
+          <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>                                                                             
+        <ng-template matStepLabel>Step 3: Layouts.scss</ng-template>
+        <section class="container">
+          <dl>
+            <dt>Definition</dt>
+            <dd>It is used to define the layout & components  of the page</dd>
+            <dt>Navigation Path</dt>
+            <dd>src > app > styles > layouts.scss</dd>
+            <dd><img src="assets/developers-guide/style/layouts.png" alt="layouts file"></dd>
+            <dt>Properties</dt>
+            <dd>
+              <ul>
+                <li><strong>Flex: </strong> flex-direction, justify-content, align-items</li>
+                <li><strong>Grid: </strong> grid-template-columns, grid-template-rows, grid-gap</li>
+                <li><strong>Header: </strong> Title, Subtitle, headerBar</li>
+                <li><strong>Card: </strong> card-container, card-header, individual-card</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 4: Mixins.scss</ng-template>
+        <section class="conatiner">
+          <dl>
+            <dt>Definition</dt>
+            <dd>Mixins are used to define reusable styles that can be applied to multiple elements. They make it easy to keep your code DRY and maintainable.</dd>
+            <dt>How to use</dt>
+            <dd>Mixins are defined using the <strong>&#64;mixin</strong> directive followed by the mixin name and a block of styles</dd>            
+            <dt>Navigation Path</dt>
+            <dd>src > app > styles > mixins.scss</dd>
+            <dd><img src="assets/developers-guide/style/mixins.png" alt="mixins file"></dd>
+            <dt>Properties</dt>
+            <dd>
+              <ul>
+                <li><strong>Button:</strong> Primary, seconadary, disabled</li>
+                <li><strong>Flex: </strong> Direction, align, wrap</li>
+                <li><strong>Grid: </strong> grid-templpate-columns, grid-template-rows, gap, </li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 5: Helpers.scss</ng-template>
+        <section class="conatiner">
+          <dl>
+            <dt>Definition</dt>
+            <dd>Helpers are used to define utility classes that can be applied to elements to achieve specific styles or behaviors. They make it easy to add common styles to your elements without having to write custom CSS.</dd>
+            <dt>How to use</dt>
+            <dd>Helpers are defined using the <strong>.class-name</strong> syntax followed by a block of styles</dd>
+            <dt>Navigation Path</dt>
+            <dd>src > app > styles > helpers.scss</dd>
+            <dd><img src="assets/developers-guide/style/helpers.png" alt="helpers file"></dd>
+            <dt>Properties</dt>
+            <dd>
+              <ul>
+                <li><strong>Spacing: </strong> padding, margin</li>
+                <li><strong>Visibility: </strong> hidden, visible</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+        <button class="primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 6: How to use all in your scss</ng-template>
+        
+        <section>
+          <dl>
+            <dt>Navigation Path</dt>
+            <dd>src > app > presentation > pages > layout-models > layout-nmodels.component.scss </dd>
+            <dt>Integrate Files</dt>
+            <dd><img src="assets/developers-guide/style/integratefile.png" alt=""></dd>
+            <dt>Integrate Variables</dt>
+            <dd><img src="assets/developers-guide/style/integrateVariables.png" alt=""></dd>
+            <dt>Integrate Class</dt>
+            <dd><img src="assets/developers-guide/style/integrateClass.png" alt=""></dd>
+            <dt>Integrate Mixins</dt>
+            <dd><img src="assets/developers-guide/style/integratemixins.png" alt=""></dd>
+          </dl>
+        </section>
+        <button class="primary" matStepperPrevious>Back</button>
+      </mat-step>
+    </mat-stepper>
+  </section>
+</section>

@@ -1,0 +1,97 @@
+@use "./variables.scss" as *;
+@use "./mixins.scss" as *;
+@use "./layouts.scss" as *;
+@use "./helpers.scss" as *;
+
+// Typography
+
+*{
+  color: $text-color;
+}
+
+h1, h2, h3,.subHeading{
+  font-weight: $font-weight-heading;
+  line-height: $line-height-heading;
+  margin-bottom: $spacing-heding;
+  font-family: $font-family-base;
+}
+
+h1{
+  font-size: $font-size-heading;
+}
+
+h2,h3,.subHeading{
+  font-size: $font-size-subheading;
+}
+
+h4,h5,h6{
+  font-size: $font-size-base;
+  font-weight: $font-weight-heading;
+  line-height: $line-height-base;
+  margin-bottom: $spacing;
+  font-family: $font-family-base;
+}
+
+p,span,a{
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
+  margin-bottom: $spacing;
+}
+
+a{
+  color: $link-color;
+  text-decoration: $link-hover-decoration;
+  cursor: pointer;
+  font-family: $font-family-base-links;
+  &:hover{
+    color: $link-hover-color;
+  }
+}
+
+button{
+  &.primary{
+    @include button(primary);
+  }
+  &.secondary{
+    @include button(secondary);
+  }
+  &.disabled{
+    @include button(disable);
+  }
+}
+
+mat-icon{
+  cursor: pointer;
+  &.disabled{
+    color: $color-gray-dark;
+  }
+  &.success{
+    color: $color-success;
+  }
+  &.warning{
+    color: $color-orange;
+  }
+  &.white{
+    color: $color-white;
+  }
+}
+
+.card-section{
+  padding: $spacing;
+  .card{
+    border: $border-component;
+    padding: $spacing;
+    background-color: $component-bg;
+  }
+}
+
+.container{
+ padding: $spacing; 
+ @extend .flex-container ,.column;
+ &__header{
+  padding-top: 0;
+ }
+}
+

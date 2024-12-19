@@ -1,0 +1,15 @@
+@if(!LoginScreen){
+  <div class="content">
+    <aside class="content__sideNavBar">
+      <app-side-nav></app-side-nav> 
+    </aside>
+    <main class="content__main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+}
+@else{
+  <section class="content login-page">
+   <app-login class="login-component"></app-login>
+  </section>
+}

@@ -1,0 +1,56 @@
+@use "../../../styles/typography.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/helpers.scss" as *;
+@use "../../../styles/layouts.scss" as *;
+
+.snackbar-component{
+  position: absolute ;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width:100%;
+  // background-color: $color-white;
+  z-index: 1000;
+  display: none;
+  &.showSnackBar{
+    display: block;
+  }
+  .snackbar-section{
+    @extend .flex-container;
+    justify-content: flex-end;
+    .snackbar-content{
+      @extend .flex-container;
+      padding: $spacing;
+      box-shadow: $box-shadow-medium;
+      border-radius: 0.25rem;
+      margin: 0.5rem;
+      visibility: hidden;
+      transform: translateY(100px); /* Start off-screen */
+      transition: visibility 0.3s ease, transform 0.3s ease; /* Smooth animation */
+      
+      &.show{
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      &.success-message{
+        background-color: $color-success;
+      }
+
+      &.error-message{
+        background-color: $color-red;
+      }
+
+      .snackbar-label{
+        color: $color-white;
+        margin: 0;
+      }
+      .snackbar-actions{
+        color: $color-white;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}

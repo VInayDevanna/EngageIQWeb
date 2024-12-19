@@ -1,0 +1,72 @@
+@use "./variables.scss" as *;
+
+.padding{
+  padding: $spacing;
+}
+
+.padding-top{
+  padding-top: $spacing;
+}
+
+.margin-top{
+  margin-top: $spacing;
+}
+
+.margin-bottom{
+  margin-bottom: $spacing;
+}
+
+.bg-white{
+  background-color: $color-white;
+  color: $text-color;
+}
+
+.bg-transparent{
+  *{
+    background-color: transparent;
+    color: $text-color-white;
+  }
+  .bg-black{
+    background-color: $color-black;
+    color: $text-color-white;
+  }
+}
+
+.bg-red{
+  background-color: $color-red-dark;
+  *{
+    color: $text-color-white;    
+  }
+  button.disabled{
+    color: $color-gray-dark;
+  }
+  .bg-black{
+    background-color: $color-black;
+    color: $text-color-white;
+  }
+}
+
+.bg-black{
+  background-color: $color-black;
+  color: $text-color-white;
+}
+
+.hide{
+  visibility: hidden;
+}
+
+.show{
+  visibility: visible;
+}
+
+.text-shadow{
+  text-shadow: 0px 6px 4px $color-gray-dark;
+}
+
+.success{
+  color: $color-success;
+}
+
+.error{
+  color: $color-red;
+}

@@ -1,0 +1,108 @@
+// $font-size: 3rem;
+///Fonts
+/// Font Family
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$font-family-base: $font-family-sans-serif;
+$font-family-base-links: $font-family-monospace;
+
+/// Font Weight
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$font-weight-base: $font-weight-normal;
+$font-weight-heading: $font-weight-bold;
+$font-weight-subheading: $font-weight-medium;
+$font-weight-subText: $font-weight-light;
+
+/// Font Size
+$font-size-base: 1rem;
+$font-size-heading: $font-size-base * 3;
+$font-size-subheading: $font-size-base * 2;
+$font-size-subText: $font-size-base * .875;
+$font-size-smallText: $font-size-base * .75;
+
+
+///Colors
+$color-white: #fff;
+$color-white-light: #f8f9fa;
+$color-black: #000;
+$color-black-light: #272727;
+$color-gray: #dadede;
+$color-gray-light: #ececec;
+$color-gray-lighter: #fbfbfb;
+$color-gray-dark: #787A7A;
+$color-blue: #0650D0;
+$color-blue-light:#007bff;
+$color-red: #dc3545;
+$color-red-dark: #a13333;
+$color-transparent: transparent;
+$color-success: #28a745;
+$color-orange: #cb7600;
+
+/// Text Color
+$text-color: $color-black-light;
+$text-color-bold: $color-black;
+$text-color-light: $color-gray-dark;
+$text-color-white: $color-white;
+$button-text-primary-color: $color-white;
+$button-text-secondary-color: $color-blue;
+$link-color: $color-blue;
+$link-hover-color: darken($link-color, 15%);
+$link-hover-decoration: none;
+
+/// Background Color
+$body-bg: $color-gray;
+$component-bg: $color-white;
+$component-bg-dark: $color-black;
+$button-primary-bg: $color-blue;
+$button-secondary-bg: $color-white;
+$button-primary-hover-bg: darken($button-primary-bg, 10%);
+$button-secondary-hover-bg: darken($button-secondary-bg, 10%);
+$button-primary-active-bg: darken($button-primary-bg, 20%);
+$button-secondary-active-bg: darken($button-secondary-bg, 20%);
+$button-primary-disabled-bg: $color-gray-light; 
+
+/// Border
+/// Border Color
+$border-component-color: $color-gray;
+/// Border Properties
+$border-button-primary-color: $color-transparent;
+$border-button-secondary-color: $color-blue;
+$border-width: 1px;
+$border-radius: .5rem;
+$border-button-radius:.25rem;
+
+/// Border Final
+$border-component: $border-width solid $border-component-color;
+$border-button-primary: $border-width solid $border-button-primary-color;
+$border-button-secondary: $border-width solid $border-button-secondary-color;
+
+/// Box Shadow
+$box-shadow-default: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);   ///cards
+$box-shadow-light:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);      
+$box-shadow-medium: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);  ///modals
+$box-shadow-dark: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);  ///dropdowns
+$box-shadow-card: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); ///table
+
+
+/// Spacing
+$spacing: 1rem;
+$spacing-heding: 1.5rem;
+$spacing-subText: .5rem;
+$spacng-button: .25rem 1.5em;
+
+
+/// Line Height
+$line-height-base: 1.4;
+$line-height-heading: 1.1;
+$line-height-subText: 1.3;
+
+/// Z-index
+// $zindex-dropdown: 1000;
+// $zindex-sticky: 1020;
+// $zindex-fixed: 1030;
+// $zindex-modal-backdrop: 1040;
+// $zindex-modal: 1050;

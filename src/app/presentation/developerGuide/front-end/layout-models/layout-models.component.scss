@@ -1,0 +1,77 @@
+
+@use "../../../../styles/typography.scss" as *;
+@use "../../../../styles/mixins.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/layouts.scss" as *;
+@use "../../../../styles/helpers.scss" as *;
+@use "../../../../styles/angularmaterial.scss" as *;
+
+
+.container__layouts{
+  // background-color: wheat;
+}
+
+.typography--section{
+  padding: $spacing;
+}
+
+.card-section{
+  // height: 40vh;
+  width: calc(100% - 32px);
+  margin: auto;
+  border-radius: 4px;
+
+  &__0{
+    @extend .flex-container,.column;
+  }
+
+  /// Display Flex Container with Column direction and Wrap elements
+  &__1{
+    @extend .flex-container,.column, .center, .wrap;
+  }
+
+  &__2{
+    @extend .flex-container;
+  }
+
+  &__3{
+    @extend .flex-container,.center, .wrap;
+  }
+
+  &__4{
+    @extend .flex-container, .wrap;
+  }
+
+  &__5{
+    @extend .grid-container;
+    @include grid-template-column(200px 1fr 2fr);
+    @include grid-template-row(1fr 2fr 200px);
+  }
+
+  &__6{
+    @extend .grid-container;
+    @include grid-template-column(1fr 1fr 1fr 1fr);
+    @include grid-template-row(200px 300px);
+  }
+
+  &__7{
+    @extend .grid-container;
+    @include grid-template-column(1fr 1fr 1fr);
+    @include grid-template-row(1fr 1fr 1fr 1fr);
+    .header{
+    //  grid-column: 1/4;
+      @include grid-column(1,4);
+    }
+    .sidebar{
+      @include grid-row(2,4);
+    }
+    .footer{
+      @include grid-column(1,4);
+    }
+  }
+
+}
+
+.card{
+  @extend .flex-child;
+}

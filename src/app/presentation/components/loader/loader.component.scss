@@ -1,0 +1,48 @@
+@use "../../../styles/typography.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/helpers.scss" as *;
+@use "../../../styles/layouts.scss" as *;
+.loader-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $color-white;
+  z-index: 100;
+  opacity: 0.9;
+  .loader{
+    @extend .flex-container,.column,.center;
+    height: 100%;
+    width: 100%;
+    .mdc-circular-progress{
+      ::ng-deep.mdc-circular-progress__indeterminate-circle-graphic{  
+        stroke:$color-red-dark !important;
+      }
+    }
+    .loader-text{
+      color: $color-black-light;
+      &::after{
+        content: '';
+        animation: dots 1.5s steps(3, end) infinite;
+        font-size: $font-size-heading;
+      }
+    }
+    /* Keyframes for dots animation */
+    @keyframes dots {
+      0% {
+        content: '';
+      }
+      33% {
+        content: '.';
+      }
+      66% {
+        content: '..';
+      }
+      100% {
+        content: '...';
+      }
+    }
+  }
+}

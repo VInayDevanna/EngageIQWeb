@@ -1,0 +1,122 @@
+@use"./variables.scss"as*;
+@use"./mixins.scss"as*;
+@use"./typography.scss"as*;
+@use"./layouts.scss"as*;
+@use"./helpers.scss"as*;
+
+
+///Replace Angular Material theme with your own Styles
+
+/// 1.Angular Material Stepper
+/// Angular material Horizontal Stepper
+// .mat-stepper-horizontal .mat-horizontal-stepper-header-container .mat-step-header{
+//   ::ng-deep &.mat-primary{
+//     padding: $spacing;
+//     border: $border-button-secondary;
+//     border-radius: $border-button-radius;
+//     .mat-step-icon{
+//       border: $border-button-secondary;
+//       color: $button-text-secondary-color;
+//     }
+//     *{
+//       color: $button-text-secondary-color;
+//     }
+//     &.cdk-focused{
+//       background-color: $button-primary-bg;
+//       border: $border-button-primary;
+//       .mat-step-icon{
+//         background-color: $button-primary-bg;
+//         border: 1px solid$color-white;
+//         color: $button-text-primary-color;
+//       }
+//       *{
+//         color: $button-text-primary-color;
+//       }
+//     }
+//     .cdk-visually-hidden {
+//       border: 0;
+//       clip: rect(0 0 0 0);
+//       height: 1px;
+//       margin: -1px;
+//       overflow: hidden;
+//       padding: 0;
+//       position: absolute;
+//       width: 1px;
+//       white-space: nowrap;
+//       outline: 0;
+//       -webkit-appearance: none;
+//       -moz-appearance: none;
+//       left: 0;
+//     }
+//     span{
+//       margin: 0;
+//     }
+//   }
+// }
+/// Angular material Vertical Stepper
+// .mat-stepper-vertical .mat-step .mat-vertical-stepper-header.mat-step-header{
+//   ::ng-deep &.mat-primary{
+//     padding: $spacing;
+//     border: $border-button-secondary;
+//     border-radius: $border-button-radius;
+//     .mat-step-icon{
+//       border: $border-button-secondary;
+//       color: $button-text-secondary-color;
+//     }
+//     *{
+//       color: $button-text-secondary-color;
+//     }
+//     &.cdk-focused{
+//       background-color: $button-primary-bg;
+//       border: $border-button-primary;
+//       .mat-step-icon{
+//         background-color: $button-primary-bg;
+//         border: 1px solid$color-white;
+//         color: $button-text-primary-color;
+//       }
+//       *{
+//         color: $button-text-primary-color;
+//       }
+//     }
+//     .cdk-visually-hidden {
+//       border: 0;
+//       clip: rect(0 0 0 0);
+//       height: 1px;
+//       margin: -1px;
+//       overflow: hidden;
+//       padding: 0;
+//       position: absolute;
+//       width: 1px;
+//       white-space: nowrap;
+//       outline: 0;
+//       -webkit-appearance: none;
+//       -moz-appearance: none;
+//       left: 0;
+//     }
+//     span{
+//       margin: 0;
+//     }
+//   }
+// }
+
+mat-select,mat-form, mat-table{
+  span, p, a{
+    margin-bottom: 0;
+  }
+}
+
+// /* Main mat-select container */
+// .mat-select {
+//   border-radius: 8px;
+//   overflow: hidden; /* Ensures the border-radius applies correctly */
+// }
+
+// /* Trigger area (text displayed inside mat-select) */
+// .mat-select-trigger {
+//   border-radius: inherit; /* Ensures consistency */
+// }
+
+// /* Dropdown panel */
+// .mat-select-panel {
+//   border-radius: 8px;
+// }

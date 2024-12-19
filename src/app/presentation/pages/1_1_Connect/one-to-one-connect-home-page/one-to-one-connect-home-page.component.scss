@@ -1,0 +1,30 @@
+.main-content{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  }
+  
+  .banner-section{  
+    padding: 16px;
+    color: white;
+    }
+    
+    .maqruee-section{
+    height: 35vh;
+    width: 70%;
+    margin: auto;
+    background-color: white;
+    border: 1px solid #e5e9e9;
+    border-radius: 4px;
+    }
+    
+    .card-section{
+    height: 40vh;
+    width: calc(100% - 32px);
+    margin: auto;
+    background-color: white;
+    border: 1px solid #e5e9e9;
+    border-radius: 4px;
+    }

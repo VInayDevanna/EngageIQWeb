@@ -1,0 +1,62 @@
+<section class="section style-guide">
+  <header class="section__header bg-red">
+    <!--Title-->
+    <h1>Codename Pulse</h1>
+    <!--SubTitle-->
+    <h6>User 1:1 Connect Report</h6>
+    <!--Header Menu-->
+    <section class="section__header__description bg-black">
+      <button class="left--section disabled">test</button>
+      <h3 class="middle--section">Prequisites</h3>
+      <section class="right--section">
+       <p>Ready to Download</p>  
+      </section>
+    </section>
+  </header>
+
+  <section class="padding bg-white">
+    <h3>Follow the steps to understand Code Architechture</h3>
+    <mat-stepper orientation="vertical" >
+      <mat-step>
+        <ng-template matStepLabel>Step 1: Commands to Clone Repo & Run Angular App</ng-template>
+        <ng-template matStepContent>
+          <div class="terminal" >
+            <pre>
+{{gitInitialCommands}}
+            </pre>
+        </div>
+        <br>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 2: Push te Changes into Repo</ng-template>
+        <ng-template matStepContent>
+          <div class="terminal" >
+            <pre>
+{{gitInitialCommands}}
+            </pre>
+        </div>
+        <br>
+          <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <!-- <mat-step>                                                                             
+        <ng-template matStepLabel>Step 3: Data (optional)</ng-template>
+        <section class="container">
+          <dl>
+            <dt>Definition</dt>
+            <dd>Data is used to give response in JSON format if we dont have API calls. </dd>
+            <dt>Navigation Path</dt>
+            <dd>src > app > core > data > navigation.models.ts</dd>
+            <dd><img src="assets/developers-guide/architechture/core-architechture-data.png" alt="layouts file"></dd>
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+      </mat-step> -->
+    </mat-stepper>
+  </section>
+
+</section>

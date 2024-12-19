@@ -1,0 +1,25 @@
+@use "../../../../styles/typography.scss" as *;
+@use "../../../../styles/mixins.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/helpers.scss" as *;
+@use "../../../../styles/layouts.scss" as *;
+
+.ikigai{
+  .section__card{
+    .card{
+      @include grid-template-column(1fr);
+      @include grid-template-row(1fr 1fr 1fr 1fr);
+      @include grid-row-gap(0);
+      *{
+        font-family: $font-family-base-links;
+        font-size: $font-size-subText;
+      }
+      .title,.ikigai{
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+  .section__dashboard{
+    @extend.text-shadow
+  }
+}

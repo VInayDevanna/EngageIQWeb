@@ -1,0 +1,108 @@
+@use "./variables.scss" as *;
+
+/// Buttons
+@mixin button($type){
+  font-family: $font-family-base-links;
+  font-size: $font-size-subText;
+  font-weight: $font-weight-base;
+  padding: $spacng-button;
+  margin-right: $spacing;
+  border-radius: $border-button-radius;
+  cursor: pointer;
+  @if $type == primary{
+    border: $border-button-primary;
+    background-color: $button-primary-bg;
+    color: $button-text-primary-color;   
+  } @else if $type == secondary{
+    border: $border-button-secondary;
+    background-color: $button-secondary-bg;
+    color: $button-text-secondary-color;    
+  }
+  @else if $type == disable{
+    border: $border-component;
+    background-color: $button-primary-disabled-bg;
+    color: $text-color-light;    
+  }
+}
+
+
+/// Flex
+///Flexbox Container
+@mixin flex($direction:row, $justify, $align, $wrap){
+  @if $direction == column{
+    flex-direction: column;
+  }
+  @if $justify == center{
+    justify-content: center;
+    align-items: center;
+  }
+  @else if $justify == space-between{
+    justify-content: space-between;
+  }
+  @else if $justify == space-around{
+    justify-content: space-around;
+  }
+  @else if $justify == space-evenly{
+    justify-content: space-evenly;
+  }
+  @if $wrap == wrap{
+    flex-wrap: wrap;
+  }
+}
+///Flexbox Item
+@mixin flex-item($grow:0, $shrink:1, $basis:auto, $align:auto){
+  @if $grow != ''{
+    flex-grow: $grow;
+  }
+  @if $shrink != ''{
+    flex-shrink: $shrink;
+  }
+  @if $basis != ''{
+    flex-basis: $basis;
+  }
+  @if $align == center{
+    align-self: center;
+  }
+  @else if $align == flex-end{
+    align-self: flex-end;
+  }
+  @else if $align == flex-start{
+    align-self: flex-start;
+  }
+  @else if $align == stretch{
+    align-self: stretch;
+  }
+  @else if $align == baseline{
+    align-self: baseline;
+  }
+  
+}
+
+/// Grid Container
+/// Grid Container Columns
+@mixin grid-template-column($width){
+  grid-template-columns: $width;
+}
+/// Grid Container Rows
+@mixin grid-template-row($height){
+  grid-template-rows: $height;
+}
+///Grid Items
+/// Grid Column
+@mixin grid-row($start, $end){
+  grid-row-start: $start;
+  grid-row-end: $end;
+}
+/// Grid Row
+@mixin grid-column($start, $end){
+  grid-column-start: $start;
+  grid-column-end: $end;
+}
+/// Grid Row Gap
+@mixin grid-row-gap($gap){
+  row-gap: $gap;
+}
+/// Grid Column Gap
+@mixin grid-column-gap($gap){
+  column-gap: $gap;
+}

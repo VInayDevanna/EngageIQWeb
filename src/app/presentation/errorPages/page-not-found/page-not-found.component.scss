@@ -1,0 +1,11 @@
+.page-not-found{
+  .section__dashboard{
+    height: 50vh;
+    &__right{
+      text-align: center;
+      a{
+        color: white;
+      }
+    }
+  }
+}

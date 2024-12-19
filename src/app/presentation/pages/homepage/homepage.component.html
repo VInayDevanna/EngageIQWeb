@@ -1,0 +1,57 @@
+<section class="section dashboard">
+  <header class="section__header bg-red">
+    <h1>Engage-IQ</h1>
+    <h6>Welcome back to Dashboard</h6>
+    <section class="section__header__description bg-black">      
+      <h3 class="middle--section">Dashboard</h3>
+    </section>
+  </header>
+  <section class="section__dashboard">
+    <section class="section__dashboard__left">     
+        <img src="assets/Dashboard.png" alt="">
+    </section>
+    <section class="section__dashboard__right" >
+      <h6>[{{DataDisplayingMonth}}] Highlights:</h6>
+      <p>IKIGAI [{{DataDisplayingMonth}}] = {{IKIGAICompletedTeamCount}} Teams ✅, {{IKIGAIPendingTeamsCount}} Teams ❌</p>
+      <p>1:1 Feedback [{{DataDisplayingMonth}}] = {{OneToOneCompletedCount}} Members ✅, {{OneToOnePendingCount}} Members ❌</p>
+    </section>      
+  </section>
+  <section class="section__card">
+    <section class="section__card__header">
+      <button class="left--section primary">Filter</button>     
+      <button class="right--section secondary">{{DataDisplayingMonth}}</button>
+    </section>
+    <section class="section__card__container">
+      
+      @for (item of TeamsStatisticData(); track item.teamID) {
+        <section class="card card__1">
+          <p class="card__section title">{{item.teamName}}</p>
+          <p class="card__section role">SM: {{item.teamSMName}}</p>
+          <section class="card__section"></section>
+          @if(item.ikigaiStatus){
+            <h6 class="card__section ikigai">IKIGAI: ✅</h6>
+          }
+          @else {
+            <h6 class="card__section ikigai">IKIGAI: ❌</h6>
+          }
+          
+          <h6 class="card__section 1:1Connect">1:1 Connect: {{item.totalOnetoOneCompletedCount}}/{{item.totalTeamMembersCount}}</h6>
+          <section class="card__section avatar__container collapse">
+            @for (lst of item.teamMembersList; track lst.empID) {
+              <img class="avatar" src={{lst.empPicture}} />           
+            }         
+          </section>
+        </section>
+      }     
+    </section>
+  </section>
+</section>
+
+@if(this.showSnackbar){
+  <app-snackbar SnackBarMessage={{snackbarMessge}} SnackBarType={{snackbarType}}
+    (closeSnackBar)="CloseSnackBar()"></app-snackbar>
+  }
+  
+  @if(this.loader){
+  <app-loader></app-loader>
+  }

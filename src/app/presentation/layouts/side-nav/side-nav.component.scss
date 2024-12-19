@@ -1,0 +1,121 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/typography.scss" as *;
+
+  nav{
+    display: flex;
+    flex-direction: column;
+    gap: $spacing * 1.25;
+    overflow: auto;
+    height: 100vh;
+    background-color: white;    
+    padding: $spacing * 2;
+    position: sticky;
+    top: 0;
+    @media(min-width: 1500px){
+      padding: $spacing * 3;
+    }
+
+    .sideNavHeaderSection,
+    .sideNavFooterSection{
+      text-align: center;
+      &__image{
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+      }
+      &__logoImage{
+        border-radius: 0;
+        width: 100px;
+        height: auto;
+      }
+      &__description{
+        &__name{
+          margin-bottom: 0;
+          font-family: $font-family-base-links;
+        }
+        &__role,
+        &__logout{
+          margin-bottom: 0.25rem;
+          display: block;
+          color: $text-color;
+          font-family: $font-family-base-links;
+        }
+        &__role{
+          font-size: $font-size-smallText;
+        }
+        &__logDetails,
+        &__version{
+          font-size: $font-size-smallText;
+          color: $text-color-light;
+        }
+      }
+    }
+    
+    .sideNavSection{
+      &__mainMenu{
+        @extend .subHeading;
+        color: $text-color-bold;
+        margin-bottom: $spacing *0.5;
+        font-size: $font-size-base * 1.25;
+        font-family: $font-family-base-links;
+      }
+      li{
+        list-style-type: none;
+        padding-left: $spacing
+      }
+      
+      &__subMenu{
+        color: $text-color;
+        display: block;
+        margin: $spacing * 0.5;
+        font-size: $font-size-subText;
+      }
+    }
+
+    .mat-accordion .mat-expansion-panel{
+      padding: 0;
+      box-shadow: none;
+      .mat-expansion-panel-header{
+        padding: 0 .25rem 0 0;
+        align-items: baseline;
+        height: $spacing * 1.75;
+        ::ng-deep.mat-content{
+          margin-bottom: $spacing *0.5;
+        }        
+        ::ng-deep.mat-expansion-indicator {
+          transform: rotate(270deg) !important; /* Remove default rotation */
+          transition: transform 0.3s ease;
+        }        
+      }  
+      &.mat-expanded >.mat-expansion-panel-header{
+        ::ng-deep.mat-expansion-indicator {
+          transform: rotate(0deg) !important; /* Rotate when expanded */
+        }
+       } 
+      ::ng-deep.mat-expansion-panel-body {
+        padding: 0 0 0 1rem;
+      }    
+    }
+
+    .connect__links{
+      &::before {
+          content: '◆';
+          font-size: 0.75rem;
+          color: black;
+          position: absolute;
+          left: 0;
+          // top: 4px;
+      }
+      &:has(+.connect__links){
+        &::after {
+          content: '';
+          position: absolute;
+          width: 2px;
+          height: 1.75rem;
+          background-color: black;
+          left: 2px; /* Position it in line with the dot */
+          top: 50%;
+      }
+      }
+    }
+  }

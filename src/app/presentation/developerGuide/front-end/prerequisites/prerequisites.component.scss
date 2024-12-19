@@ -1,0 +1,29 @@
+
+@use "../../../../styles/typography.scss" as *;
+@use "../../../../styles/mixins.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/layouts.scss" as *;
+@use "../../../../styles/helpers.scss" as *;
+@use "../../../../styles/angularmaterial.scss" as *;
+
+dl{
+  dt{
+    font-weight: $font-weight-bold;
+    margin-top: $spacing ;
+  }
+  dd{
+    margin-left: $spacing;    
+  }
+  ul {
+    margin-top: $spacing;
+    margin-left: $spacing ;
+    li{
+      margin-top: $spacing;
+    }
+  }
+  img{
+    max-width: 30%;
+    height: auto;
+    margin-top: $spacing;
+  }
+}

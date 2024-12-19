@@ -1,0 +1,108 @@
+<section class="section style-guide">
+  <header class="section__header bg-red">
+    <h1>Codename Pulse</h1>
+    <h6>Welcome to Angular Code Architechture Guide</h6>
+    <!-- <section class="section__header__description bg-black">
+      <button class="left--section disabled">test</button>
+      <h3 class="middle--section">Dashboard</h3>
+      <section class="right--section"></section>
+    </section> -->
+  </header>
+  <section class="padding bg-white">
+    <h3>Follow the steps to understand Code Architechture</h3>
+    <mat-stepper orientation="vertical" >
+      <mat-step>
+        <ng-template matStepLabel>Step 1: Architechture Overview</ng-template>
+        <ng-template matStepContent>
+          <section class="container">
+            <dl>
+              <dt>Definition</dt>
+              <dd>Code architecture is the way you organize your code to make it easier to read, maintain, and scale. It helps you keep your code clean, organized, and easy to understand.</dd>
+              <dt>Please find below image for more details</dt>
+              <dd><img src="assets/developers-guide/architechture/core-architechure.png" alt="core architechture file"></dd>
+              <dt>For demo pupose, we take below highlighted section in side nav bar for use case</dt>
+              <dd><img src="assets/developers-guide/architechture/core-architechture-example.png" alt="core architechture example" style="height: 400px;"></dd>
+            </dl>
+          </section>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 2: Models</ng-template>
+        <ng-template matStepContent>
+          <section class="container">
+            <dl>
+              <dt>Definition</dt>
+              <dd>Models are used to define the structure of your data(interface). They help you organize your data and make it easier to work with.</dd>
+              <dt>Navigation Path</dt>
+              <dd>src > app > core > models > navigation.models.ts</dd>
+              <dd><img src="assets/developers-guide/architechture/core-architechture-models.png" alt="typography file"></dd>
+            </dl>
+          </section>
+          <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+      <mat-step>                                                                             
+        <ng-template matStepLabel>Step 3: Data (optional)</ng-template>
+        <section class="container">
+          <dl>
+            <dt>Definition</dt>
+            <dd>Data is used to give response in JSON format if we dont have API calls. </dd>
+            <dt>Navigation Path</dt>
+            <dd>src > app > core > data > navigation.models.ts</dd>
+            <dd><img src="assets/developers-guide/architechture/core-architechture-data.png" alt="layouts file"></dd>
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+          <button class="primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 4: Services</ng-template>
+        <section class="conatiner">
+          <dl>
+            <dt>Definition</dt>
+            <dd>Services are used to define API calls in our application</dd>
+            <dt>Navigation Path</dt>
+            <dd>src > app > core > services > api.services.ts</dd>
+            <dd><img src="assets/developers-guide/architechture/core-architechture-services.png" alt="mixins file"></dd>           
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+        <button class="primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 5: Use Cases</ng-template>
+        <section class="conatiner">
+          <dl>
+            <dt>Definition</dt>
+            <dd>Use cases are used to define the business logic of your application. They help you keep your code clean and organized by separating your data access and manipulation from your components.</dd>
+            <dd>In our application, we can use this section to classify content based on user acount access</dd>
+            <dt>Navigation Path</dt>
+            <dd>src > app > domain > use case > navigation > navigation-data-use-case.ts</dd>
+            <dd><img src="assets/developers-guide/architechture/core-architechture-useCases.png" alt="helpers file"></dd>            
+          </dl>
+        </section>
+        <button class="secondary" matStepperPrevious>Back</button>
+        <button class="primary" matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Step 6: How to use all in our angular component (presentation layer)</ng-template>
+        
+        <section>
+          <dl>
+            <dt>Step 1: Get all Data into component.ts</dt>
+            <dd>Navigation Path:</dd>
+            <dd>src > app > presentation > layouts > side-nav > side-nav.component.ts </dd>
+            <dd><img src="assets/developers-guide/architechture/core-architechture-component.png" alt=""></dd>
+            <dt>Step 2: Map Resultant data into angulat templates (HTML)</dt>
+            <dd>Navigation Path:</dd>
+            <dd>src > app > presentation > layouts > side-nav > side-nav.component.html </dd>
+            <dd><img src="assets/developers-guide/architechture/core-architechture-template.png" alt=""></dd>
+          </dl>
+        </section>
+        <button class="primary" matStepperPrevious>Back</button>
+      </mat-step>
+    </mat-stepper>
+  </section>
+</section>

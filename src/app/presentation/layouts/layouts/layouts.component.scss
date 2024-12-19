@@ -1,0 +1,38 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/typography.scss" as *;
+@use "../../../styles/layouts.scss" as *;
+@use "../../../styles/helpers.scss" as *;
+
+
+.content{
+  height: 100%;
+  width: 100%;
+  color: #272727;
+  overflow: auto;
+  font-size: $spacing;
+  &:has(.dashboard){
+    background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 20%,$color-gray-light 20%,$color-gray-light 100%);
+  }
+  &:not(.dashboard){
+    background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 230px,$color-gray-light 230px,$color-gray-light 100%);
+  }
+  @extend .grid-container;
+  @include grid-template-column(17% 1fr );
+  @include grid-template-row(1fr);
+  gap: 0;
+  &.login-page{
+    @extend .flex-container,.center;
+    background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 50%,$color-gray-light 50%,$color-gray-light 100%);
+    background: radial-gradient(circle at center, #1b1c2a, #2e1e4e, #161623, #090a0f);
+    // background: radial-gradient(circle at 50% 50%, #2d2f49, #1b1c2a 40%, #0f1121 80%);
+  }
+  &__sideNavBar{
+    margin-top: $spacing * 2.25;
+    border-top-right-radius: 1rem;
+    @media(min-width: 1500px){
+    }
+  }
+  &__main{
+  }
+}

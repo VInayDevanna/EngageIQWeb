@@ -1,0 +1,288 @@
+@use "../../../../styles/typography.scss" as *;
+@use "../../../../styles/mixins.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/helpers.scss" as *;
+@use "../../../../styles/layouts.scss" as *;
+
+.ikigai-teams{
+  .section__members{
+    @extend .flex-container,.wrap,.center;
+    margin: $spacing;
+    &__description{
+      @extend .flex-container,.center, .column;
+      gap: 0;
+      border: $border-component;
+      padding: $spacing*0.25 $spacing 0 $spacing;
+      min-width: 100px;
+
+      background-color: #bfe1f3;
+      border: 1px solid #007bff;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &.active{
+        background-color: #c3e9cc;
+        border: 1px solid #28a745;
+      }
+      
+      &.completed {
+        background-color: #c3e9cc;
+        border: 1px solid #28a745;
+      }
+      
+      &.pending {
+        background-color: #9e9e9e; 
+        border: 1px solid #7a7c7b;
+      }
+      
+      &.in-progress {
+        background-color: #8bc8fa;
+        border: 1px solid #3018ff;
+      }
+      .avatar{
+        width: 2.25rem;
+        height: auto;
+        border-radius: 50%;
+      }
+    }
+  }
+  .section__ikigai{
+    margin: $spacing;
+    &__feedbacks{
+      @extend .flex-container,.bg-white;
+      .card{
+        box-shadow: none;
+        width: 100%;
+        height: auto;
+      }
+      .section__card{
+        width: 50%;
+        &__header{
+          background-color: $color-gray-lighter;
+          color: $color-gray-dark;
+        }
+      }
+    }
+  }  
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.no-data {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
+
+::ng-deep.mat-mdc-tab-group{
+  border: 1px solid $color-gray;
+  border-radius: 8px;  
+  margin: 16px;
+  background-color: $color-white;
+  ::ng-deep.mat-mdc-tab-header{
+    ::ng-deep.mat-mdc-tab-label-container{
+      z-index: 0;
+      border: 1px solid $color-gray;
+      ::ng-deep.mat-mdc-tab{
+        &:first-child{
+          border-top-left-radius: $spacing * 0.5;
+        }
+        &:last-child{
+          border-top-right-radius: $spacing * 0.5;
+        }
+        ::ng-deep.mdc-tab__text-label{
+          padding: $spacing;
+        }
+        &.mdc-tab--active{
+          background-color: $color-blue;
+          .mdc-tab__text-label{
+            color: $color-white;
+          }
+        }
+        p,span,a{
+          margin: 0;
+          padding: 0;
+        }
+        ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content--underline{
+          border: none;
+        }
+      }
+    }
+  }
+  // ::ng-deep.mat-mdc-tab-body-wrapper{
+  //   margin: $spacing;
+  //   height: auto;
+  //   ::ng-deep.mat-mdc-tab-body.mat-mdc-tab-body-active{
+  //     z-index: 0;
+  //   }
+  // }
+}
+
+.filters{
+  @extend .flex-container,.wrap,.center,.space-between;
+  width: 100%;
+}
+
+table{
+  box-shadow:$box-shadow-card;
+  .feedback-actions{
+    width: 400px;
+  }
+  .feedback-category,
+  .feedback-status{
+    ::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled{
+      border-radius: $spacing * 2;
+      .mdc-line-ripple::before{
+        border-color: transparent;
+      }
+      .mdc-line-ripple::after{
+        border-color: transparent;
+      }
+    }
+  }
+  .chips{
+    padding: $spacing*0.5 $spacing;
+    border: 1px solid;
+    border-radius: $spacing * 2;
+    width:max-content;
+    &.red{
+      background-color: #f44336;
+      color: white;
+    }
+    &.yellow{
+      background-color: #ffeb3b;
+      color: black;
+    }
+    &.green{
+      background-color: #4caf50;
+      color: white;
+    }
+    &.blue{
+      background-color: #2196f3;
+      color: white;
+    }
+    &.pink{
+      background-color: rgb(245, 161, 175);
+      color: white;
+    }
+  }
+}
+
+.ngx-editor-panel{
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::ng-deep.NgxEditor{
+  margin: $spacing;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  .disabled &{
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  &__Content{
+    padding: $spacing $spacing*0.5 !important;
+    ul, ol{
+      padding-inline-start: $spacing * 2;
+    }
+  }
+}
+
+.error-message{
+  color: red;
+  padding: 16px;
+}
+
+.highlight {
+  position: relative; /* Ensure positioning context for the dot */
+  border: 4px solid #007bff; /* Blue border color and increased thickness */
+  //background: linear-gradient(135deg, #f0f8ff, #e0f7fa); /* Keep the original background */
+  border-radius: 8px; /* Rounded corners for a smoother look */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Larger, more intense shadow */
+  transform: scale(1.05); /* Slightly enlarge the section for popup effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Smooth transition for all effects */
+  padding: 15px; /* Space around the content */
+  cursor: pointer; /* Change cursor to pointer to indicate clickability */
+}
+
+.highlight:hover {
+  transform: scale(1.08); /* Slightly increase the popup effect on hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+  border-color: #004b87; /* Darker blue border on hover */
+}
+
+.highlight::after {
+  content: ''; /* No text content, just a visual element */
+  position: absolute;
+  top: 10px; /* Adjust top position */
+  right: 10px; /* Adjust right position */
+  width: 14px; /* Slightly larger dot */
+  height: 14px; /* Slightly larger dot */
+  border-radius: 50%; /* Make it a circle */
+  background-color: green; /* Green color for the dot */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.highlight:hover::after {
+  transform: scale(1.2); /* Increase dot size on hover */
+  background-color: #4caf50; /* Slightly darker green for hover */
+}
+
+.highlight p {
+  font-weight: bold; /* Make employee name bold */
+  color: black; /* Blue color for employee name */
+  margin-top: 10px; /* Space between image and name */
+}
+
+.highlight img.avatar {
+  border-radius: 50%; /* Circular image */
+  border: 3px solid #007bff; /* Blue border around the avatar */
+  width: 60px; /* Fixed size for the avatar */
+  height: 60px; /* Fixed size for the avatar */
+  object-fit: cover; /* Ensures the image covers the avatar area */
+  transition: transform 0.3s ease; /* Smooth transition for avatar */
+}
+
+.highlight:hover img.avatar {
+  transform: scale(1.1); /* Slightly enlarge the avatar on hover */
+}
+
+.no-data-message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  padding: 40px;
+  margin: 0;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  width: 100%;
+}
+
+.no-data-message p {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #555;
+}
+
+.no-data-message mat-icon {
+  font-size: 40px;
+  color: #ff9800;
+  margin-bottom: 15px;
+}
+
+/* Optional hover effect */
+.no-data-message:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}

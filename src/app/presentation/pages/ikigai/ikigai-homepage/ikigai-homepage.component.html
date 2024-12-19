@@ -1,0 +1,41 @@
+<section class="section ikigai">
+  <header class="section__header bg-red">
+    <h1>Engage-IQ</h1>
+    <h6>Please select the team to start ikigai</h6>
+    <section class="section__header__description bg-black">
+      <h3 class="middle--section">Start IKIGAI</h3>
+    </section>
+  </header>
+  <section class="section__card">
+    <!--Card Header-->
+    <section class="section__card__header">
+      <h6 class="middle--section"></h6>
+      <button class="right--section secondary">{{DataDisplayingMonth}}</button>
+    </section>
+    <!--Card Section-->
+    <section class="section__card__container">
+      @for (item of TeamsStatisticData(); track item.teamID) {
+      <section class="card card__1">
+        <p class="card__section title">{{item.teamName}}</p>
+        <p class="card__section role">SM: {{item.teamSMName}}</p>
+        <section class="card__section"></section>
+        <a class="card__section ikigai" (click)="redirectToIkigaiPage(item.teamID,item.teamName)"> Start IKIGAI</a>
+        <section class="card__section avatar__container collapse">
+          @for (lst of item.teamMembersList; track lst.empID) {
+          <img class="avatar" src={{lst.empPicture}} />
+          }
+        </section>
+      </section>
+      }
+    </section>
+  </section>
+</section>
+
+@if(this.showSnackbar){
+<app-snackbar SnackBarMessage={{snackbarMessge}} SnackBarType={{snackbarType}}
+  (closeSnackBar)="CloseSnackBar()"></app-snackbar>
+}
+
+@if(this.loader){
+<app-loader></app-loader>
+}
