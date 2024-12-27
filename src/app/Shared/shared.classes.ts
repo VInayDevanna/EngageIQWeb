@@ -8,6 +8,8 @@ export class ApiNames
   static readonly SaveGoingGoodAndKeyImprovements = 'Ikigai/SaveIkigaiData';
   static readonly GetIkigaiMasterData = 'Ikigai/GetIkigaiMasterData';
   static readonly SaveActionItem = 'Ikigai/SaveActionItem';
+  static readonly GetTeamMappingData = 'Mapping/GetMasterData';
+  static readonly SaveTeamMappingData = 'Mapping/SaveMapping';
 }
 
 export class HttpMethod

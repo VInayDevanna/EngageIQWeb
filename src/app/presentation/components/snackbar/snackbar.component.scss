@@ -4,53 +4,62 @@
 @use "../../../styles/helpers.scss" as *;
 @use "../../../styles/layouts.scss" as *;
 
-.snackbar-component{
-  position: absolute ;
+.snackbar-component {
+  position: fixed; /* Fix the snackbar to the screen */
   top: 0;
   left: 0;
   height: 100%;
-  width:100%;
-  // background-color: $color-white;
+  width: 100%;
   z-index: 1000;
   display: none;
-  &.showSnackBar{
+  
+  &.showSnackBar {
     display: block;
   }
-  .snackbar-section{
+  
+  .snackbar-section {
+    position: fixed; /* Positioning to bottom-center */
+    bottom: 1rem; /* Distance from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset for perfect centering */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+  }
+
+  .snackbar-content {
     @extend .flex-container;
-    justify-content: flex-end;
-    .snackbar-content{
-      @extend .flex-container;
-      padding: $spacing;
-      box-shadow: $box-shadow-medium;
-      border-radius: 0.25rem;
-      margin: 0.5rem;
-      visibility: hidden;
-      transform: translateY(100px); /* Start off-screen */
-      transition: visibility 0.3s ease, transform 0.3s ease; /* Smooth animation */
-      
-      &.show{
-        visibility: visible;
-        transform: translateY(0);
-      }
+    padding: $spacing;
+    box-shadow: $box-shadow-medium;
+    border-radius: 0.25rem;
+    margin: 0.5rem;
+    visibility: hidden;
+    transform: translateY(100px); /* Start off-screen */
+    transition: visibility 0.3s ease, transform 0.3s ease; /* Smooth animation */
 
-      &.success-message{
-        background-color: $color-success;
-      }
+    &.show {
+      visibility: visible;
+      transform: translateY(0);
+    }
 
-      &.error-message{
-        background-color: $color-red;
-      }
+    &.success-message {
+      background-color: $color-success;
+    }
 
-      .snackbar-label{
-        color: $color-white;
-        margin: 0;
-      }
-      .snackbar-actions{
-        color: $color-white;
-        margin: 0;
-        cursor: pointer;
-      }
+    &.error-message {
+      background-color: $color-red;
+    }
+
+    .snackbar-label {
+      color: $color-white;
+      margin: 0;
+    }
+
+    .snackbar-actions {
+      color: $color-white;
+      margin: 0;
+      cursor: pointer;
     }
   }
 }

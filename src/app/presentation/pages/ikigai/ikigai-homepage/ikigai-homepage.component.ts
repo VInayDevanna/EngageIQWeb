@@ -15,11 +15,11 @@ import { SnackbarComponent } from "../../../components/snackbar/snackbar.compone
   styleUrl: './ikigai-homepage.component.scss'
 })
 export class IkigaiHomepageComponent implements OnInit {
- 
+
   //Inject Usecase to call the api
   private router = inject(Router);
   private homePageService = inject(HomePageService);
-  private destroyRef = inject(DestroyRef);  
+  private destroyRef = inject(DestroyRef);
   DataDisplayingMonth = '';
   loader: boolean = false;
   // Initializing the Signal with an initial menu list 
@@ -30,7 +30,7 @@ export class IkigaiHomepageComponent implements OnInit {
   snackbarType!: string;
 
   ngOnInit(): void {
-   
+
     this.loader = true;
     //call Homepage Service  
     this.homePageService.GetHomePageData({
@@ -43,8 +43,8 @@ export class IkigaiHomepageComponent implements OnInit {
     })
       .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
       .subscribe({
-        next: (response) => {   
-          this.loader = false;      
+        next: (response) => {
+          this.loader = false;
           if (response.isValid) {
             // Set the signal with the fetched navigation data
             this.DataDisplayingMonth = response.dataQueriedMonth;
@@ -54,8 +54,8 @@ export class IkigaiHomepageComponent implements OnInit {
                 const teamMember = response.teams[i].teamMembersList[j];
                 response.teams[i].teamMembersList[j].empPicture = this.getRandomImage(teamMember.empGender);
               }
-            }       
-            this.TeamsStatisticData.set(response.teams);       
+            }
+            this.TeamsStatisticData.set(response.teams);
           }
           else {
             // Handle the failure response here
@@ -71,24 +71,38 @@ export class IkigaiHomepageComponent implements OnInit {
           } else if (error.status === 404) {
             this.showSnackBar("Resource not found - 404", SnackBarType.Error);
             // Handle 404 Not Found error
-          } else if (error.status === 400) {
-            this.showSnackBar("Bad request - 400", SnackBarType.Error);
+          } else if (error.status === 400) {            
             // Handle 400 Bad Request error
+            if (error?.error?.errors) {
+              // Extract validation error messages from error.error.errors
+              const validationMessages = Object.entries(error.error.errors)
+                .map(([field, messages]) => `${field}: ${(messages as string[]).join(", ")}`)
+                .join("\n");
+
+              this.showSnackBar(validationMessages, SnackBarType.Error);
+            }
+            else if (error?.error?.title) {
+              this.showSnackBar(error.error.title, SnackBarType.Error);
+            }
+            else {
+              this.showSnackBar("Bad request - 400.", SnackBarType.Error);
+            }
+
           } else {
             this.showSnackBar("An unexpected error occurred: " + error, SnackBarType.Error);
             // Handle other types of errors
-          }          
+          }
         },
       });
   }
 
-  getRandomImage(gender: string): string {    
+  getRandomImage(gender: string): string {
     return StaticImages.getRandomImage(gender);
   }
 
-  redirectToIkigaiPage(teamId: string,teamName: string) {
+  redirectToIkigaiPage(teamId: string, teamName: string) {
     // Redirect to the ikigai page with the teamId
-    this.router.navigate(['/IKIGAI',teamId,teamName]);
+    this.router.navigate(['/IKIGAI', teamId, teamName]);
   }
 
   showSnackBar = (message: string, msgType: string) => {

@@ -127,6 +127,6 @@ export const appConfig: ApplicationConfig = {
     },
     MsalService,
     MsalGuard,
-    MsalBroadcastService,
+    MsalBroadcastService, provideAnimationsAsync(),
     ],
 };

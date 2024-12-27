@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './presentation/errorPages/page-not-found/
 import { AIBasicsComponent } from './presentation/developerGuide/AI/aibasics/aibasics.component';
 import { BackEndBasicsComponent } from './presentation/developerGuide/Backend/back-end-basics/back-end-basics.component';
 import { MsalGuard } from '@azure/msal-angular';
+import { TeammappingconfigComponent } from './presentation/pages/settings/teammapping/teammappingconfig/teammappingconfig.component';
 
 export const routes: Routes = [
   {path:'login', component:HomepageComponent},
@@ -30,6 +31,7 @@ export const routes: Routes = [
   {path:'page-not-found', component:PageNotFoundComponent,canActivate: [MsalGuard]},
   {path:'AI-basics', component:WorkinProgreessComponent},
   {path:'back-end-basics', component:WorkinProgreessComponent},
+  {path:'TeamMapping', component:TeammappingconfigComponent, canActivate: [MsalGuard]},
   // {path:'AI-basics', component:AIBasicsComponent},
   // {path:'back-end-basics', component:BackEndBasicsComponent},
   { path: '', component:HomepageComponent,canActivate: [MsalGuard]}, // Wildcard route for home redirect

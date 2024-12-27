@@ -236,7 +236,18 @@ export class IkigaiTeamsComponent implements OnInit {
         this.ErrorMessage = "Resource not found - 404.";
         break;
       case 400:
-        this.ErrorMessage = "Bad request - 400.";
+        if (error?.error?.errors) {
+          // Extract validation error messages from error.error.errors
+          const validationMessages = Object.entries(error.error.errors)
+            .map(([field, messages]) => `${field}: ${(messages as string[]).join(", ")}`)
+            .join("\n");
+
+          this.showSnackBar(validationMessages, SnackBarType.Error);
+        } else if (error?.error?.title) {
+          this.showSnackBar(error.error.title, SnackBarType.Error);
+        } else {
+          this.showSnackBar("Bad request - 400.", SnackBarType.Error);
+        }
         break;
       default:
         this.ErrorMessage =
