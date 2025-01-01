@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { MsalService, MsalBroadcastService } from '@azure/msal-angular';
@@ -6,10 +6,15 @@ import { EventMessage, AuthenticationResult, InteractionStatus, EventType } from
 import { filter } from 'rxjs/operators';
 import { Claim } from '../models/claim';
 import { createClaimsTable } from '../../claim-utils';
+import { ApiService } from './api.service';
+import { CommonResponse } from '../models/ikigai-individual/ikigaiIndividual.model';
+import { ApiNames, HttpMethod } from '../../Shared/shared.classes';
+import { UserLoginInfo } from '../models/login/login.model';
 
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
+    private apiService = inject(ApiService);
     // Use BehaviorSubject to provide an observable for claims availability
     private claimsSubject = new BehaviorSubject<Claim[]>([]);
     claims$ = this.claimsSubject.asObservable();
@@ -20,37 +25,41 @@ export class LoginService {
     constructor(private authService: MsalService, private msalBroadcastService: MsalBroadcastService) {
         this.getClaims(undefined);
         this.msalBroadcastService.msalSubject$
-        .pipe(
-            filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
-        )
-        .subscribe((result: EventMessage) => {
-            const payload = result.payload as AuthenticationResult;
-            this.authService.instance.setActiveAccount(payload.account);
-        });
+            .pipe(
+                filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
+            )
+            .subscribe((result: EventMessage) => {
+                const payload = result.payload as AuthenticationResult;
+                this.authService.instance.setActiveAccount(payload.account);
+            });
 
-    this.msalBroadcastService.inProgress$
-        .pipe(
-            filter((status: InteractionStatus) => status === InteractionStatus.None)
-        )
-        .subscribe(() => {
-            this.setLoginDisplay();
-            const claims = this.authService.instance.getActiveAccount()?.idTokenClaims;
-            this.getClaims(claims);
-        });
-     }
+        this.msalBroadcastService.inProgress$
+            .pipe(
+                filter((status: InteractionStatus) => status === InteractionStatus.None)
+            )
+            .subscribe(() => {
+                this.setLoginDisplay();
+                const claims = this.authService.instance.getActiveAccount()?.idTokenClaims;
+                this.getClaims(claims);
+            });
+    }
 
-   
+
     setLoginDisplay() {
         this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
     }
 
     getClaims(claims: any) {
-        
+
         if (claims) {
             const claimsTable = createClaimsTable(claims);
             this.claimsSubject.next([...claimsTable]);
         } else {
             this.claimsSubject.next([]); // No claims available
         }
+    }
+
+    UpdateLastLogin() {       
+        return this.apiService.callApi<UserLoginInfo>(ApiNames.Login, HttpMethod.POST);
     }
 }

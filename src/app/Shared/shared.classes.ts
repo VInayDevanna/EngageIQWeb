@@ -10,6 +10,7 @@ export class ApiNames
   static readonly SaveActionItem = 'Ikigai/SaveActionItem';
   static readonly GetTeamMappingData = 'Mapping/GetMasterData';
   static readonly SaveTeamMappingData = 'Mapping/SaveMapping';
+  static readonly Login = 'Login';
 }
 
 export class HttpMethod

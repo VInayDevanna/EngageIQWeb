@@ -25,7 +25,8 @@ export class SideNavComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   LoggedInUserName = '';
   LoggedInUserRole = '';
-  GenderImagePath = '';
+  LastLogin='';
+  GenderImagePath = '';  
   UserEmpID='';
   showSnackbar: boolean = false;
   snackbarMessge!: string;
@@ -37,6 +38,9 @@ export class SideNavComponent implements OnInit {
 
 
   ngOnInit(): void {
+    //get last login from local storage
+    this.LastLogin= localStorage.getItem('LastLogin') ?? '',
+    
     //call Navigation Menu Service  
     this.navigationService.GetNavigationMenusBasedOnUser()
       .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
@@ -46,7 +50,7 @@ export class SideNavComponent implements OnInit {
             // Set the signal with the fetched navigation data
             this.LoggedInUserName = response.userName;
             this.LoggedInUserRole = response.roleName;
-            this.UserEmpID = response.userID;
+            this.UserEmpID = response.userID;            
             //save UserEMpID in local storage
             localStorage.setItem('LoggedInEmployeeID', this.UserEmpID);
             if (response.gender.toUpperCase() === 'MALE')

@@ -1,39 +1,42 @@
-import { Component, inject, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { EventMessage, EventType, InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../../core/services/login.service';
 import { Claim } from '../../../core/models/claim';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  private router=inject(Router);
-  constructor(//private router:Router,
+  private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+
+  constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
-  isLoggedIn  = false;
+  isLoggedIn = false;
   private readonly _destroying$ = new Subject<void>();
   claims: Claim[] = [];
 
-  ngOnInit(): void {
-    
+  async ngOnInit(): Promise<void> {
     this.authService.handleRedirectObservable().subscribe({
-      next: (result) => {
-        if (result) {          
-          this.authService.instance.setActiveAccount(result.account);  
-          // Redirect to the dashboard
-          this.router.navigate(['/Dashboard']);
+      next: async (result) => {
+        if (result) {
+          this.authService.instance.setActiveAccount(result.account);
+          // Call the login API to store last login timestamp
+          await this.callLoginAPIToUpdateLastLogin(result.account);
         } else {
           console.log('No redirect result available');
         }
@@ -46,9 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     // Update the login display and account info
     this.setLoginDisplay();
 
-    this.authService.instance.enableAccountStorageEvents(); // Optional - This will enable ACCOUNT_ADDED and ACCOUNT_REMOVED events emitted when a user logs in or out of another tab or window
-    
-    // Handle account added/removed events
+    this.authService.instance.enableAccountStorageEvents();
+
     this.msalBroadcastService.msalSubject$
       .pipe(
         filter(
@@ -65,7 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       });
 
-    //To subscribe for claims
     this.loginService.claims$.subscribe((c) => {
       this.claims = c;
     });
@@ -84,17 +85,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   setLoginDisplay() {
-    this.isLoggedIn  = this.authService.instance.getAllAccounts().length > 0;
+    this.isLoggedIn = this.authService.instance.getAllAccounts().length > 0;
   }
 
   checkAndSetActiveAccount() {
-    /**
-     * If no active account set but there are accounts signed in, sets first account to active account
-     * To use active account set here, subscribe to inProgress$ first in your component
-     * Note: Basic usage demonstrated. Your app may require more complicated account selection logic
-     */
     let activeAccount = this.authService.instance.getActiveAccount();
-
     if (
       !activeAccount &&
       this.authService.instance.getAllAccounts().length > 0
@@ -109,9 +104,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this._destroying$.complete();
   }
 
-
   loginFunction = () => {
-    debugger;
     if (this.msalGuardConfig.authRequest) {
       this.authService.loginRedirect({
         ...this.msalGuardConfig.authRequest,
@@ -119,5 +112,48 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else {
       this.authService.loginRedirect();
     }
-  }  
+  }
+
+  // Function to call the backend API to store last login time
+  async callLoginAPIToUpdateLastLogin(account: any) {
+    const accessToken = this.authService.instance.getActiveAccount()?.idToken || '';
+    if (accessToken) {
+      // Call your backend API to store the last login time
+      await this.loginService.UpdateLastLogin()
+        // .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+        .subscribe({
+          next: (response) => {            
+            if (response.isValid) {
+              //store last login 
+              localStorage.setItem('LastLogin', response.lastLogin);
+              // Only redirect to the dashboard after the login API call succeeds              
+              this.router.navigate(['/Dashboard']);
+            } else {
+              console.log(response.remarks);
+            }
+          },
+          error: (error) => {
+            // Handle any errors here
+            if (error.status === 401) {
+              console.log("Unauthorized access - 401.");
+            } else if (error.status === 404) {
+              console.log("Resource not found - 404.");
+            } else if (error.status === 400) {
+              if (error?.error?.errors) {
+                const validationMessages = Object.entries(error.error.errors)
+                  .map(([field, messages]) => `${field}: ${(messages as string[]).join(", ")}`)
+                  .join("\n");
+                console.log(validationMessages);
+              } else if (error?.error?.title) {
+                console.log(error.error.title);
+              } else {
+                console.log("Bad request - 400.");
+              }
+            } else {
+              console.log("An unexpected error occurred: " + error);
+            }
+          },
+        });
+    }
+  }
 }
