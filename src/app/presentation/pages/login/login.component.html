@@ -1,4 +1,4 @@
-<section class="login">
+<!-- <section class="login">
   <img class="login-marquee-image" src="assets/main-images/LoginMarqueeImages.png" alt="">
   <section class="login-content">
     <img class="login-app-logo" src="assets/main-images/appLogo.webp" alt="App Logo">
@@ -6,4 +6,27 @@
     <button class="primary" (click)="loginFunction()">Login with SSO</button>
     <img class="company-app-logo" src="assets/main-images/DevonLogo.png" alt="Company Logo">
   </section>
+</section> -->
+<section class="login">
+  <img class="login-marquee-image" src="assets/main-images/LoginImage.png" alt="">
+  <section class="login-content">
+    <section class="login-content-main">
+      <img class="company-app-logo" src="assets/main-images/DevonLogo.png" alt="Company Logo">
+      <!-- <img class="login-app-logo" src="assets/main-images/appLogo.webp" alt="App Logo"> -->
+      <span class="login-description" >Accelerating High Performance Your Trusted Partner in Software Development, Technology Consulting & Training</span>
+      <h3 class="login-title">Welcome Back!!!</h3>
+      <button class="login-button" (click)="loginFunction()">Sign in with Microsoft</button>
+    </section>
+    <section class="login-content-footer">
+      © [{{currentYear}}] [DevOn Software Services Private Limited]. All Rights Reserved.
+    </section>
+  </section>
 </section>
+
+@if(this.showSnackbar){
+ <app-snackbar SnackBarMessage={{snackbarMessge}} SnackBarType={{snackbarType}} (closeSnackBar)="CloseSnackBar()" ></app-snackbar>
+}
+
+@if(this.loader){
+  <app-loader></app-loader>
+}

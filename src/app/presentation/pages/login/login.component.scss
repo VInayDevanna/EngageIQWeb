@@ -1,40 +1,106 @@
+// @use "../../../styles/typography.scss" as *;
+// @use "../../../styles/mixins.scss" as *;
+// @use "../../../styles/variables.scss" as *;
+// @use "../../../styles/helpers.scss" as *;
+// @use "../../../styles/layouts.scss" as *;
+
+
+// // ::ng-deep.login-component,.login{
+// //   width: inherit;
+// //   height: 100%;
+// // }
+// .login{
+//   @extend .flex-container;
+//   box-shadow: $box-shadow-medium;
+//   // min-width: 500px;
+//   // min-height: 300px;
+//   gap: 0;
+//   .login-marquee-image,
+//   .login-content{
+//     @extend .flex-child;
+//     width: 50%;
+//   }
+//   .login-content{
+//     background-color: $color-white;
+//     border: $border-component;
+//     padding: 1rem 3rem;
+//     @extend .flex-container, .column,.center;
+//     .login-app-logo{
+//       width: 100px;
+//       height: auto;
+//     }
+//     .login-title{
+//       // @extend .flex-child, .grow;
+//     }
+//     .company-app-logo{
+//       width: 100px;
+//       height: auto;
+//     }
+//   }
+// }
 @use "../../../styles/typography.scss" as *;
 @use "../../../styles/mixins.scss" as *;
 @use "../../../styles/variables.scss" as *;
 @use "../../../styles/helpers.scss" as *;
 @use "../../../styles/layouts.scss" as *;
 
-
-// ::ng-deep.login-component,.login{
-//   width: inherit;
-//   height: 100%;
-// }
 .login{
   @extend .flex-container;
-  box-shadow: $box-shadow-medium;
-  // min-width: 500px;
-  // min-height: 300px;
+  // box-shadow: $box-shadow-medium;
   gap: 0;
+  width: 70%;
+  margin: auto;
   .login-marquee-image,
   .login-content{
     @extend .flex-child;
-    width: 50%;
+  }
+  .login-marquee-image{
+    width: 60%;
   }
   .login-content{
-    background-color: $color-white;
+    width: 40%;
+    background-color: #F9FAFB;
     border: $border-component;
     padding: 1rem 3rem;
-    @extend .flex-container, .column,.center;
-    .login-app-logo{
-      width: 100px;
-      height: auto;
+    @extend .flex-container, .column,.space-between;
+    &-main{
+      @extend .flex-child, .grow;
+      @extend .flex-container, .column,.center;
+      gap: 1rem;
+      .login-app-logo{
+        width: 100px;
+        height: auto;
+      }
+      .login-description{
+        font-size: $font-size-smallText;
+        text-align: center;
+        padding-bottom: 3rem;
+      }
+      .login-title{
+        // @extend .flex-child, .grow;
+      }
+      .company-app-logo{
+        width: 200px;
+        height: auto;
+      }
+      .login-button{
+        background-color: white;
+        border: 1px solid #d0d0d0;
+        border-radius: 2rem;
+        padding: 0.75rem 1.5rem 0.75rem 3.5rem;
+        cursor: pointer;
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg');
+        background-repeat: no-repeat;
+        background-size: 1rem 2.5rem;
+        background-position: 1.5rem center;
+        &:hover{
+          box-shadow: $box-shadow-light;
+        }
+      }
     }
-    .login-title{
-      // @extend .flex-child, .grow;
-    }
-    .company-app-logo{
-      width: 100px;
-      height: auto;
+    &-footer{
+      font-size: $font-size-smallText;
+      text-align: center;
     }
   }
 }

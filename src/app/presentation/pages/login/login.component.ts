@@ -7,18 +7,23 @@ import { Claim } from '../../../core/models/claim';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SnackbarComponent } from "../../components/snackbar/snackbar.component";
+import { LoaderComponent } from "../../components/loader/loader.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  imports: [SnackbarComponent, LoaderComponent],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
+  loader: boolean = false;
+  showSnackbar: boolean = false;
+  snackbarMessge!: string;
+  snackbarType!: string;
+  currentYear: number = new Date().getFullYear();
   private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
-
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
@@ -84,6 +89,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
+  CloseSnackBar = () => {
+    this.showSnackbar = false;
+    this.router.navigate(['Dashboard']);
+  };
+  
   setLoginDisplay() {
     this.isLoggedIn = this.authService.instance.getAllAccounts().length > 0;
   }
