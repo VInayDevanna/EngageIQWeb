@@ -24,7 +24,7 @@ export const environment: EnvironmentConfiguration = {
       'api://4d7e52e7-4bb1-4764-8fd2-c7f1ec9a0982/EngageIQ.Read',
       'api://4d7e52e7-4bb1-4764-8fd2-c7f1ec9a0982/EngageIQ.Write'
     ],
-    apiEndpointUrl: 'https://engageiqapi.azurewebsites.net/api/',
+    apiEndpointUrl: serverUrl,
     tenantId: "24b080cd-5874-44ab-9862-8d7e0e0781ab"
   },
   cacheTimeInMinutes: 30,
