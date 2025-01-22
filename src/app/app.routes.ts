@@ -77,6 +77,11 @@ export const routes: Routes = [
     loadComponent:()=> import('./presentation/pages/settings/teammapping/teammappingconfig/teammappingconfig.component').then(mod=> mod.TeammappingconfigComponent), 
     canActivate: [MsalGuard] 
   },
+  { 
+    path: 'RoleConfig', 
+    loadComponent:()=> import('./presentation/pages/settings/roleconfig/roleconfig.component').then(mod=> mod.RoleconfigComponent), 
+    canActivate: [MsalGuard] 
+  },
   // {path:'AI-basics', component:AIBasicsComponent},
   // {path:'back-end-basics', component:BackEndBasicsComponent},
   { path: '', component: HomepageComponent, canActivate: [MsalGuard] }, // Wildcard route for home redirect

@@ -1,0 +1,107 @@
+@use "../../../../styles/typography" as *;
+@use "../../../../styles/mixins.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/helpers.scss" as *;
+@use "../../../../styles/layouts.scss" as *;
+
+.full-width {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.filters{
+  @extend .flex-container,.wrap,.center,.space-between;
+  width: 100%;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+
+.no-data-message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  padding: 40px;
+  margin: 0;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  width: 100%;
+}
+
+.no-data-message p {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #555;
+}
+
+.no-data-message mat-icon {
+  font-size: 40px;
+  color: #ff9800;
+  margin-bottom: 15px;
+}
+
+/* Optional hover effect */
+.no-data-message:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+/* Wrapper for consistent styling */
+.styled-select {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  font-family: Arial, sans-serif;
+}
+
+/* Style for the <select> element */
+.styled-select select {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ECECEC;
+  border-radius: 5px;
+  background-color: white;
+  color: #333;
+  appearance: none; /* Remove default arrow in modern browsers */
+  -webkit-appearance: none; /* Safari/Chrome */
+  -moz-appearance: none; /* Firefox */
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Add hover and focus styles */
+.styled-select select:hover,
+.styled-select select:focus {
+  border-color: #ECECEC;
+  box-shadow: #ECECEC;
+}
+
+/* Add a custom arrow icon */
+.styled-select::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #ECECEC;
+  font-size: 14px;
+}
+
+/* Remove padding and spacing from options */
+.styled-select select option {
+  padding: 10px;
+}

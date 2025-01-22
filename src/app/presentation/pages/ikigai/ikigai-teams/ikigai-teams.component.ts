@@ -22,6 +22,7 @@ import { SnackBarType, StaticImages } from '../../../../Shared/shared.classes';
 import { PanelList } from '../../../../Shared/shared.classes';
 import { EmptyHTMLValidator } from '../../../../Shared/custom.validator';
 import { SnackbarComponent } from "../../../components/snackbar/snackbar.component";
+import { CustomErrorHandler } from '../../../../Shared/custom.errormessage';
 @Component({
   selector: 'app-ikigai-teams',
   standalone: true,
@@ -131,12 +132,11 @@ export class IkigaiTeamsComponent implements OnInit {
             this.feedbackStatus = response.actions;
           }
           else {
-            // Handle the failure response here
+            // Handle the failure response here            
             this.handleError(response.remarks);
           }
         },
-        error: (error) => {
-          this.loader = false;
+        error: (error) => {         
           this.handleError(error);
         },
       });
@@ -180,7 +180,6 @@ export class IkigaiTeamsComponent implements OnInit {
           }
         },
         error: (error) => {
-          this.loader = false;
           this.handleError(error);
         },
       });
@@ -221,40 +220,14 @@ export class IkigaiTeamsComponent implements OnInit {
             this.dataSource.sort = this.sort;
           }
         },
-        error: (error) => {
-          this.loader = false;
+        error: (error) => {         
           this.handleError(error);
         },
       });
   }
   private handleError(error: any): void {
-    switch (error?.status) {
-      case 401:
-        this.ErrorMessage = "Unauthorized access - 401.";
-        break;
-      case 404:
-        this.ErrorMessage = "Resource not found - 404.";
-        break;
-      case 400:
-        if (error?.error?.errors) {
-          // Extract validation error messages from error.error.errors
-          const validationMessages = Object.entries(error.error.errors)
-            .map(([field, messages]) => `${field}: ${(messages as string[]).join(", ")}`)
-            .join("\n");
-
-          this.showSnackBar(validationMessages, SnackBarType.Error);
-        } else if (error?.error?.title) {
-          this.showSnackBar(error.error.title, SnackBarType.Error);
-        } else {
-          this.showSnackBar("Bad request - 400.", SnackBarType.Error);
-        }
-        break;
-      default:
-        this.ErrorMessage =
-          "An unexpected error occurred: " + (error?.message || "Unknown error");
-    }
-
-    this.showSnackBar(this.ErrorMessage, SnackBarType.Error);
+    this.loader = false;
+    this.showSnackBar(CustomErrorHandler.handleError(error), SnackBarType.Error);  
   }
 
   toggleEditIcon(panelName: string) {
@@ -358,7 +331,6 @@ export class IkigaiTeamsComponent implements OnInit {
             }
           },
           error: (error) => {
-            this.loader = false;
             this.handleError(error);
           },
         });
@@ -409,7 +381,6 @@ export class IkigaiTeamsComponent implements OnInit {
           }
         },
         error: (error) => {
-          this.loader = false;
           this.handleError(error);
         },
       });

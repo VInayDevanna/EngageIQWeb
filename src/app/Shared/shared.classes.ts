@@ -11,6 +11,8 @@ export class ApiNames
   static readonly GetTeamMappingData = 'Mapping/GetMasterData';
   static readonly SaveTeamMappingData = 'Mapping/SaveMapping';
   static readonly Login = 'Login';
+  static readonly GetRoles = 'Role/GetRoles';
+  static readonly SaveRoles = 'Role/SaveRole';
 }
 
 export class HttpMethod

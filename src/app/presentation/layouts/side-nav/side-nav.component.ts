@@ -8,6 +8,7 @@ import { MsalService } from '@azure/msal-angular';
 import { NavigationService } from '../../../domain/use-cases/navigation/navigation.usecase';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackBarType } from '../../../Shared/shared.classes';
+import { CustomErrorHandler } from '../../../Shared/custom.errormessage';
 
 @Component({
   selector: 'app-side-nav',
@@ -66,33 +67,7 @@ export class SideNavComponent implements OnInit {
         },
         error: (error) => {
           // Handle any errors here
-          if (error.status === 401) {
-            this.showSnackBar("Unauthorized access - 401.", SnackBarType.Error);
-            // Handle 401 Unauthorized error
-          } else if (error.status === 404) {
-            this.showSnackBar("Resource not found - 404.", SnackBarType.Error);
-            // Handle 404 Not Found error
-          } else if (error.status === 400) {            
-            // Handle 400 Bad Request error
-             if (error?.error?.errors) {
-                          // Extract validation error messages from error.error.errors
-                          const validationMessages = Object.entries(error.error.errors)
-                            .map(([field, messages]) => `${field}: ${(messages as string[]).join(", ")}`)
-                            .join("\n");
-            
-                          this.showSnackBar(validationMessages, SnackBarType.Error);
-                        }
-                        else if (error?.error?.title) {
-                          this.showSnackBar(error.error.title, SnackBarType.Error);
-                        }
-                        else {
-                          this.showSnackBar("Bad request - 400.", SnackBarType.Error);
-                        }
-            
-          } else {
-            this.showSnackBar("An unexpected error occurred: " + error,SnackBarType.Error);
-            // Handle other types of errors
-          }
+           this.showSnackBar(CustomErrorHandler.handleError(error), SnackBarType.Error);       
         },
       });
   }

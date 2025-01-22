@@ -20,6 +20,7 @@ import { ELMappingMasterDataResponse, MappingMasterData, TeamMappingData, TeamMa
 import { TeamMappingService } from '../../../../../domain/use-cases/settings/teammapping.usecase';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackBarType } from '../../../../../Shared/shared.classes';
+import { CustomErrorHandler } from '../../../../../Shared/custom.errormessage';
 
 @Component({
   selector: 'app-teammappingconfig',
@@ -114,31 +115,7 @@ export class TeammappingconfigComponent implements OnInit {
 
   private handleError(error: any): void {
     this.loader = false;
-    switch (error?.status) {
-      case 401:
-        this.showSnackBar("Unauthorized access - 401.", SnackBarType.Error);
-        break;
-      case 404:
-        this.showSnackBar("Resource not found - 404.", SnackBarType.Error);
-        break;
-        case 400:
-          if (error?.error?.errors) {
-            // Extract validation error messages from error.error.errors
-            const validationMessages = Object.entries(error.error.errors)
-              .map(([field, messages]) => `${field}: ${(messages as string[]).join(", ")}`)
-              .join("\n");
-    
-            this.showSnackBar(validationMessages, SnackBarType.Error);
-          } else if (error?.error?.title) {
-            this.showSnackBar(error.error.title, SnackBarType.Error);
-          } else {
-            this.showSnackBar("Bad request - 400.", SnackBarType.Error);
-          }
-          break;
-      default:
-        this.showSnackBar("An unexpected error occurred: " + (error?.message || "Unknown error"), SnackBarType.Error);
-
-    }
+    this.showSnackBar(CustomErrorHandler.handleError(error), SnackBarType.Error);       
   }
 
   showSnackBar = (message: string, msgType: string) => {
