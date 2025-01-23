@@ -2,10 +2,10 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { EnvironmentConfiguration } from "../app/core/models/environment-configuration";
+import { EnvironmentConfiguration } from '../app/core/models/environment-configuration';
 
-const serverUrl='https://localhost:7100/api/';//'http://135.225.39.141:7000/api/';//'https://engageiqapi.azurewebsites.net/api/'; //
-
+// const serverUrl='https://localhost:7100/api/';//'http://135.225.39.141:7000/api/';//'https://engageiqapi.azurewebsites.net/api/'; //
+const serverUrl = 'http://135.225.39.141:7000/api/'; //'https://engageiqapi.azurewebsites.net/api/'; //
 
 // The list of file replacements can be found in `angular.json`.
 export const environment: EnvironmentConfiguration = {
@@ -13,7 +13,7 @@ export const environment: EnvironmentConfiguration = {
   production: true,
   apiUrl: serverUrl,
   apiEndpoints: {
-    userProfile:'user-profiles'
+    userProfile: 'user-profiles',
   },
   adConfig: {
     clientId: '8f65506a-c5f2-4d87-845e-a99714cdbd58',
@@ -21,10 +21,10 @@ export const environment: EnvironmentConfiguration = {
     writeScopeUrl: 'api://4d7e52e7-4bb1-4764-8fd2-c7f1ec9a0982/EngageIQ.Write',
     scopeUrls: [
       'api://4d7e52e7-4bb1-4764-8fd2-c7f1ec9a0982/EngageIQ.Read',
-      'api://4d7e52e7-4bb1-4764-8fd2-c7f1ec9a0982/EngageIQ.Write'
+      'api://4d7e52e7-4bb1-4764-8fd2-c7f1ec9a0982/EngageIQ.Write',
     ],
     apiEndpointUrl: serverUrl,
-    tenantId: "24b080cd-5874-44ab-9862-8d7e0e0781ab"
+    tenantId: '24b080cd-5874-44ab-9862-8d7e0e0781ab',
   },
   cacheTimeInMinutes: 30,
 };
