@@ -11,12 +11,13 @@
   color: #272727;
   overflow: auto;
   font-size: $spacing;
-  &:has(.dashboard){
-    background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 20%,$color-gray-light 20%,$color-gray-light 100%);
-  }
-  &:not(.dashboard){
-    background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 230px,$color-gray-light 230px,$color-gray-light 100%);
-  }
+  // &:has(.dashboard){
+  //   background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 20%,$color-gray-light 20%,$color-gray-light 100%);
+  // }
+  // &:not(.dashboard){
+  //   background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 230px,$color-gray-light 230px,$color-gray-light 100%);
+  // }
+  background-color: #F2F6F9;
   @extend .grid-container;
   @include grid-template-column(17% 1fr );
   @include grid-template-row(1fr);
@@ -26,13 +27,27 @@
     background: linear-gradient(to bottom,$color-red-dark 0,$color-red-dark 50%,$color-gray-light 50%,$color-gray-light 100%);
     background: radial-gradient(circle at center, #1b1c2a, #2e1e4e, #161623, #090a0f);
     // background: radial-gradient(circle at 50% 50%, #2d2f49, #1b1c2a 40%, #0f1121 80%);
+    // background: #dadfe1;
+    background: #F2F6F9;
   }
-  &__sideNavBar{
-    margin-top: $spacing * 2.25;
-    border-top-right-radius: 1rem;
-    @media(min-width: 1500px){
+  &__header{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    @include grid-column(1,3);
+    &.scroll{
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
     }
   }
-  &__main{
+  &__sideNavBar{
+    position: sticky;
+    top: 98px; 
+    height: calc(100vh - 100px);
+    overflow: auto;    
+    border-right: $border-component;
+    // background-color: #F9FAFB;
+    background-color: white;
+    @media(min-width: 1500px){
+    }
   }
 }

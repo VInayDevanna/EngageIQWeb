@@ -1,0 +1,70 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/typography.scss" as *;
+@use "../../../styles/layouts.scss" as *;
+@use "../../../styles/helpers.scss" as *;
+
+.header{
+  @extend .grid-container;
+  @include grid-template-column(17% 1fr );
+  @include grid-template-row(1fr);
+  gap: 0;
+  // background-color: #F9FAFB;
+  background-color: white;
+  border-bottom: 5px solid $color-gray-light;
+  &__logo{
+    border-right: $border-component;
+    padding: 1rem;
+    @extend .flex-container;
+    gap: 1rem;
+    &__img{
+      width: 20%;
+      height: auto;
+    }
+    &__title{ 
+      width: 75%;
+      align-self: center;
+      margin-bottom: 0;
+      @extend .text-shadow
+    }
+  }
+  &__title{
+    padding: 0 1rem;
+    @extend .flex-container, .space-between;
+    &__userDetails{
+      @extend .grid-container;
+      @include grid-template-column(100px 1fr );
+      @include grid-template-row(1fr 1fr);
+      @include grid-row-gap(0);
+      @include grid-column-gap(0);
+      align-items: center;
+      &__img{
+        @include grid-row(1,3);
+        width: 75px;
+        height: auto;
+        border-radius: 50%;
+      }
+      &__name{
+        align-self: flex-end;
+      }
+      &__welcomeMessage{
+        align-self: flex-start;
+        margin-top: 0.25rem;
+        color: $text-color-light;
+      }
+    }
+    &__companyDetails{
+      gap: 0rem;
+      @extend .flex-container, .column, .center;
+      &__companyImage{
+        width: 80px;
+      }
+      &__logout{
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        font-size: 0.75rem;
+        color: $text-color-light;
+      }
+    }
+  }
+}
