@@ -1,2 +1,7 @@
 
 <app-layouts></app-layouts>
+
+@if(this.showSnackbar){
+    <app-snackbar SnackBarMessage={{snackbarMessge}} SnackBarType={{snackbarType}}
+      (closeSnackBar)="CloseSnackBar()"></app-snackbar>
+}

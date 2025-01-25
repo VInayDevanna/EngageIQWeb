@@ -95,4 +95,16 @@ export class HomepageComponent implements OnInit {
   CloseSnackBar() {
     this.showSnackbar = false;
   }
+
+  TestNotification() {    
+    this.homePageService.SendNotification('This is a Real time notification from Button Click event')
+    .subscribe({
+      next: () => {
+        //console.log('SignalR API called successfully');
+      },
+      error: (err) => {
+        console.error('Error sending notification: ', err);
+      }
+    });
+  }
 }
