@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { NavMenu, NavTeamIndividualResponse } from '../../../core/models/navigation/navigation.model';
+import { NavMenu } from '../../../core/models/navigation/navigation.model';
 import { MsalService } from '@azure/msal-angular';
 import { NavigationService } from '../../../domain/use-cases/navigation/navigation.usecase';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -24,40 +24,27 @@ export class SideNavComponent implements OnInit {
   ) { }
   private navigationService = inject(NavigationService);
   private destroyRef = inject(DestroyRef);
-  LoggedInUserName = '';
-  LoggedInUserRole = '';
-  LastLogin='';
-  GenderImagePath = '';  
   UserEmpID='';
   showSnackbar: boolean = false;
   snackbarMessge!: string;
   snackbarType!: string;
   // Initializing the Signal with an initial menu list 
   sideNavMenus = signal<NavMenu[]>([]);
-  sidenavTeamsLinks = signal<NavTeamIndividualResponse[]>([]);//signal<NavTeamResponse = {} as NavTeamResponse;
+  showDocumentationMenu=true;
 
-
-
-  ngOnInit(): void {
-    //get last login from local storage
-    this.LastLogin= localStorage.getItem('LastLogin') ?? '',
-    
+  ngOnInit(): void {   
     //call Navigation Menu Service  
     this.navigationService.GetNavigationMenusBasedOnUser()
       .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
       .subscribe({
         next: (response) => {
           if (response.isValid) {
-            // Set the signal with the fetched navigation data
-            this.LoggedInUserName = response.userName;
-            this.LoggedInUserRole = response.roleName;
-            this.UserEmpID = response.userID;            
-            //save UserEMpID in local storage
+            this.UserEmpID=response.userID
+            // store last login,rolename, userid and username in local storage
+            localStorage.setItem('LoggedInUsername',response.userName),
+            localStorage.setItem('LoggedInUserRole',response.roleName),
             localStorage.setItem('LoggedInEmployeeID', this.UserEmpID);
-            if (response.gender.toUpperCase() === 'MALE')
-              this.GenderImagePath = "assets/Avatars/M/Default.jpeg";
-            else
-              this.GenderImagePath = "assets/Avatars/F/Default.jpeg";
+            localStorage.setItem('Gender', response.gender.toUpperCase());
             this.sideNavMenus.set(response.menuList);
           }
           else {

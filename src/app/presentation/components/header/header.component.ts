@@ -8,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor() {}
+  loggedInUserName= '';
+  lastLoginTime= '';  
+  LoggedInUserRole = '';
+  GenderImagePath = '';  
+  ngOnInit(): void {
+    //get last login from local storage
+    this.lastLoginTime= localStorage.getItem('LastLogin') ?? '';
+    this.loggedInUserName = localStorage.getItem('LoggedInUsername') ?? '';
+    this.LoggedInUserRole = localStorage.getItem('LoggedInUserRole') ?? '';
+    if (localStorage.getItem('Gender')?.toString() === 'MALE')
+      this.GenderImagePath = "assets/Avatars/M/Default.jpeg";
+    else
+      this.GenderImagePath = "assets/Avatars/F/Default.jpeg";
+  }
 }
