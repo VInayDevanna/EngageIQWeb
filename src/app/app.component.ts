@@ -23,12 +23,20 @@ export class AppComponent {
     this.signalRService.startConnection();
     this.signalRService.listenForNotifications((message: string) => {   
       //if(localStorage.getItem('LoggedInUserRole')?.toString() == "CDL"){
+        // Play the notification sound
+        this.playNotificationSound();
         this.showSnackBar(message, SnackBarType.Success); 
       //}      
     });
   }
 
-  
+  playNotificationSound() {
+    const audio = document.getElementById('notification-sound') as HTMLAudioElement;
+    if (audio) {
+      audio.play();
+    }
+  }
+
   showSnackBar = (message: string, msgType: string) => {
     this.showSnackbar = true;
     this.snackbarMessge = message;

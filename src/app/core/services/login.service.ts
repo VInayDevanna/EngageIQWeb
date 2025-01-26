@@ -7,7 +7,6 @@ import { filter } from 'rxjs/operators';
 import { Claim } from '../models/claim';
 import { createClaimsTable } from '../../claim-utils';
 import { ApiService } from './api.service';
-import { CommonResponse } from '../models/ikigai-individual/ikigaiIndividual.model';
 import { ApiNames, HttpMethod } from '../../Shared/shared.classes';
 import { UserLoginInfo } from '../models/login/login.model';
 

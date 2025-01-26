@@ -1,7 +1,7 @@
 
 <app-layouts></app-layouts>
-
-@if(this.showSnackbar){
+<audio id="notification-sound" src="assets/notification-sound.mp3" preload="auto"></audio>
+@if(this.showSnackbar){    
     <app-snackbar SnackBarMessage={{snackbarMessge}} SnackBarType={{snackbarType}}
       (closeSnackBar)="CloseSnackBar()"></app-snackbar>
 }
