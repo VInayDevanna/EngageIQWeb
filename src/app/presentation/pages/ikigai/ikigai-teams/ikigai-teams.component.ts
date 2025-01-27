@@ -114,7 +114,7 @@ export class IkigaiTeamsComponent implements OnInit {
     this.getMasterData();
 
     //First get the team members based on the teamID and then call the service to get the ikigai data of the first employee in the list
-    this.getTemMembersAndBindFirstEmployeeDetails();
+    this.getTemMembersAndBindFirstEmployeeDetails(true,'','');
   }
 
   getMasterData() {
@@ -142,7 +142,7 @@ export class IkigaiTeamsComponent implements OnInit {
       });
   }
 
-  getTemMembersAndBindFirstEmployeeDetails() {
+  getTemMembersAndBindFirstEmployeeDetails(CallingOnPageload: boolean = false, empID: string = '', empName: string = '') {
     this.loader = true;
     //call the service to get all team members based on teamID
     this.teamID = this.route.snapshot.paramMap.get('id')!;
@@ -169,7 +169,10 @@ export class IkigaiTeamsComponent implements OnInit {
               // Set the signal with the fetched navigation data
               this.teamMembers.set(response.teamMembers);
               //get Ikigai Data of first employee in the list
+              if (CallingOnPageload)
               this.getEmployeeIkigaiData(response.teamMembers[0].empID, response.teamMembers[0].empName);
+            else
+              this.getEmployeeIkigaiData(empID, empName);
             }
             else
               this.handleError('No Data Found');
@@ -187,6 +190,7 @@ export class IkigaiTeamsComponent implements OnInit {
 
   getEmployeeIkigaiData(empID: string, empName: string) {
     this.loader = true;
+    this.IkigaiID = '';//reset IKIGAI ID
     this.isKigigaiDataAvailable = false;//defualt to false
     this.selectedEmpID = empID;
     this.selectedEmpName = empName;
@@ -323,8 +327,7 @@ export class IkigaiTeamsComponent implements OnInit {
               this.goingGoodDisabled = false;
               this.KeyImprovementsDisabled = false;
               this.showSnackBar(response.remarks, SnackBarType.Success);
-              this.getEmployeeIkigaiData(this.selectedEmpID, this.selectedEmpName);
-
+              this.getTemMembersAndBindFirstEmployeeDetails(false,this.selectedEmpID, this.selectedEmpName);
             }
             else {
               this.showSnackBar(response.remarks, SnackBarType.Error);
