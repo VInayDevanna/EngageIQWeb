@@ -1,28 +1,33 @@
 <section class="section ikigai-teams">
-  <!-- <header class="section__header bg-red">
-    <h1>Codename Pulse</h1>
-    <h6>User 1:1 Connect Report</h6>
-    <section class="section__header__description bg-black">
-      <button class="left--section disabled">test</button>
-      <h3 class="middle--section">1:1 Connect</h3>
-      <section class="right--section">
-       <p>Ready to Download</p>  
-      </section>
-    </section>
-  </header> -->
+  <section class="section__header">
+    <h3>{{this.selectedEmpName}} IKIGAI Session - Dec 2024</h3>
+    <span>Looking for past IKIGAI data? Check Timeline tab for details</span>
+  </section>
   <section class="section__members">
-    @for (item of teamMembers(); track item.empID) {
-    <ng-container>
-      <section class="section__members__description" title={{item.empName}} [ngClass]="{
-        'completed': item.isIkigaiCompleted === true,
-        'pending': item.isIkigaiCompleted === false,    
-        'highlight': selectedEmpID === item.empID    
-      }" (click)="getEmployeeIkigaiData(item.empID,item.empName)">
-        <img class="avatar" src={{item.empPicture}}>
-        <p>{{item.empName.split(' ')[0]}}</p>
-      </section>
-    </ng-container>
-    }
+    <section class="section__members__details">
+      <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+      <p class="section__members__details__empName">{{this.selectedEmpName}}</p>
+      <p class="section__members__details__empID">{{this.selectedEmpID}}</p>
+     </section>
+     <span class="section__members__description">What’s working? What’s not? Open up to align and grow as a team.</span>
+     <section class="section__members__employeeDetailsContainer">
+       <!-- <ng-container *ngFor="let teamMembers of ikigaiIndividualTeams.teamMembersList">
+         <section class="section__members__employeeDetails" (click)="getTeamMembersEmployeeID(teamMembers.empID)">
+           <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male" matTooltip={{teamMembers.empName}}>
+         </section>
+       </ng-container> -->
+       @for (item of teamMembers(); track item.empID) {
+          <ng-container>
+            <section class="section__members__employeeDetails" [ngClass]="{
+              'completed': item.isIkigaiCompleted === true,
+              'pending': item.isIkigaiCompleted === false,    
+              'highlight': selectedEmpID === item.empID    
+              }" (click)="getEmployeeIkigaiData(item.empID,item.empName)">
+            <img class="avatar" src={{item.empPicture}} matTooltip= {{item.empName}} />
+            </section>
+          </ng-container>
+        }
+     </section>
   </section>
   @if(!isKigigaiDataAvailable){
   <div class="feedback-reminder">

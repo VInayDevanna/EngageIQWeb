@@ -7,19 +7,85 @@
 .ikigai{
   .section__card{
     .card{
-      @include grid-template-column(1fr);
-      @include grid-template-row(1fr 1fr 1fr 1fr);
+      @include grid-template-column(70% 30%);
+      @include grid-template-row(1fr 1fr 1fr 1fr );
       @include grid-row-gap(0);
+      @include grid-column-gap(0);
       *{
         font-family: $font-family-base-links;
-        font-size: $font-size-subText;
+        font-size: $font-size-smallText;
       }
-      .title,.ikigai{
+      .title{
+        font-size: $font-size-subText;
         font-weight: $font-weight-bold;
+        @include grid-column(1,3);
+      }
+      .phrase{
+        border-bottom: 1px solid $color-gray-darker;
+        @include grid-column(1,3);
+      }
+      .role, .members{
+        align-self: center;
+      }
+      .role{
+        width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .ikigai, .OnetoOneConnect, .members{
+        @extend .flex-container, .space-between;
+       .status{
+          width: 1rem;
+          height: 1rem;
+          border-radius: 50%;
+          border: 1px solid $color-white;
+          &.success{
+            background-color: $color-success;
+          }
+          &.danger{
+            background-color: $color-orange-red;
+          }
+       }
+      }
+      .members_count{
+        margin-right: $spacing*0.25;
+      }
+      .actions{
+        @extend .flex-container, .center;
+        button{
+          &.start{
+            @include button(primary);
+            margin-right: 0;
+          }
+          &.view{
+            @include button(primary);
+            margin-right: 0;
+            background-color: $color-success;
+          }
+        }
       }
     }
   }
   .section__dashboard{
     @extend.text-shadow
+  }
+  .section__header{
+    @extend.flex-container, .column, .center;
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    span{
+      font-size: $font-size-subText;
+      color: $text-color-light;
+    }
+  }
+  .section__title{
+    font-style: italic;
+    font-weight: $font-weight-subText;
+    color: $text-color-light;
+    margin: 0;
+    padding: 0;
   }
 }

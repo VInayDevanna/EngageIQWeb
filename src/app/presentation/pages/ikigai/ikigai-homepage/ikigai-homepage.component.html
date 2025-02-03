@@ -1,35 +1,79 @@
 <section class="section ikigai">
-  <!-- <header class="section__header bg-red">
-    <h1>Codename Pulse</h1>
-    <h6>User 1:1 Connect Report</h6>
-    <section class="section__header__description bg-black">
-      <button class="left--section disabled">test</button>
-      <h3 class="middle--section">1:1 Connect</h3>
-      <section class="right--section">
-       <p>Ready to Download</p>  
-      </section>
-    </section>
-  </header> -->
+  <section class="section__header">
+    <h3>Teams IKIGAI Progress- Dec 2024</h3>
+    <span>Looking for past IKIGAI data? Check Timeline tab for details</span>
+  </section>
   <section class="section__card">
+    <h6 class="section__title">Teams</h6>
     <!--Card Header-->
-    <section class="section__card__header">
+    <!-- <section class="section__card__header">
       <h6 class="middle--section"></h6>
       <button class="right--section secondary">{{DataDisplayingMonth}}</button>
-    </section>
+    </section> -->
     <!--Card Section-->
     <section class="section__card__container">
-      @for (item of TeamsStatisticData(); track item.teamID) {
-      <section class="card card__1">
-        <p class="card__section title">{{item.teamName}}</p>
-        <p class="card__section role">SM: {{item.teamSMName}}</p>
-        <section class="card__section"></section>
-        <a class="card__section ikigai" (click)="redirectToIkigaiPage(item.teamID,item.teamName)"> Start IKIGAI</a>
+
+      <!-- <section class="card card__2">
+        <p class="card__section title">Enhancers[Exact]</p>
+        <p class="card__section phrase">Placeholder for catchphrase</p>
+        <p class="card__section role"><b>SM:</b> Harsha</p>
+        <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">6</h6></section>        
         <section class="card__section avatar__container collapse">
-          @for (lst of item.teamMembersList; track lst.empID) {
-          <img class="avatar" src={{lst.empPicture}} />
-          }
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+        </section>
+        <section class="card__section actions">
+          <button class="start">Start</button>
         </section>
       </section>
+      <section class="card card__3">
+        <p class="card__section title">Mavericks[Exact]</p>
+        <p class="card__section phrase">Placeholder for catchphrase</p>
+        <p class="card__section role"><b>SM:</b> Palvi</p>
+        <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">6</h6></section>
+        <section class="card__section avatar__container collapse">
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
+          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
+        </section>
+        <section class="card__section actions">
+          <button class="view">View</button>
+        </section>
+      </section> -->
+      @for (item of TeamsStatisticData(); track item.teamID) {
+        <section class="card card__1">
+          <p class="card__section title">{{item.teamName}}</p>
+          @if (item !==undefined) {
+            <p class="card__section phrase">Placeholder for catchphrase</p>
+          } 
+          @else {
+            <p class="card__section phrase">Placeholder for catchphrase</p>
+          }
+          <p class="card__section role" matTooltip={{item.teamSMName}} matTooltipPosition="above"><b>SM:</b> {{item.teamSMName}}</p>
+          <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">{{item.totalTeamMembersCount}}</h6></section>
+          <section class="card__section avatar__container collapse">
+            @for (lst of item.teamMembersList; track lst.empID) {
+            <img class="avatar" src={{lst.empPicture}} />
+            }
+          </section>
+          <section class="card__section actions">
+            @if(item.ikigaiStatus){
+              <button class="view" (click)="redirectToIkigaiPage(item.teamID,item.teamName)">View</button>
+            }
+            @else {
+              <button class="start primary" (click)="redirectToIkigaiPage(item.teamID,item.teamName)">
+                Start
+              </button>
+            }
+          </section>
+        </section>
       }
     </section>
   </section>

@@ -1,4 +1,12 @@
-import { Component, ViewChild, inject, Inject, OnInit, DestroyRef, signal } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  inject,
+  Inject,
+  OnInit,
+  DestroyRef,
+  signal,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,35 +19,60 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { NgxEditorModule, Validators, Editor, Toolbar } from 'ngx-editor';
 import { LoaderComponent } from '../../../components/loader/loader.component';
-import { Action, ActionItems, Category, IkigaiRequest, SaveActionItemRequest, teamMembers } from '../../../../core/models/ikigai-individual/ikigaiIndividual.model';
+import {
+  Action,
+  ActionItems,
+  Category,
+  IkigaiRequest,
+  SaveActionItemRequest,
+  teamMembers,
+} from '../../../../core/models/ikigai-individual/ikigaiIndividual.model';
 import { IkigaiService } from '../../../../domain/use-cases/ikigai-individual/ikigaiIndividual-data.use-case';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackBarType, StaticImages } from '../../../../Shared/shared.classes';
 import { PanelList } from '../../../../Shared/shared.classes';
 import { EmptyHTMLValidator } from '../../../../Shared/custom.validator';
-import { SnackbarComponent } from "../../../components/snackbar/snackbar.component";
+import { SnackbarComponent } from '../../../components/snackbar/snackbar.component';
 import { CustomErrorHandler } from '../../../../Shared/custom.errormessage';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-ikigai-teams',
   standalone: true,
-  imports: [MatIconModule, CommonModule, LoaderComponent, MatTabsModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatSelectModule, NgxEditorModule, FormsModule,
-    ReactiveFormsModule, SnackbarComponent],
+  imports: [
+    MatIconModule,
+    CommonModule,
+    LoaderComponent,
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    NgxEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SnackbarComponent,
+    MatTooltipModule,
+  ],
   templateUrl: './ikigai-teams.component.html',
-  styleUrl: './ikigai-teams.component.scss'
+  styleUrl: './ikigai-teams.component.scss',
 })
-
-
 export class IkigaiTeamsComponent implements OnInit {
-
   private _ikigaiService = inject(IkigaiService);
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
-  constructor(@Inject(LiveAnnouncer) private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(@Inject(LiveAnnouncer) private _liveAnnouncer: LiveAnnouncer) {}
 
   teamID: string = '';
   teamName = '';
@@ -64,21 +97,20 @@ export class IkigaiTeamsComponent implements OnInit {
   keyImprovementsEditor!: Editor;
   keyImprovementsForm!: FormGroup;
 
-  // Initializing the Signal with an initial team members list 
+  // Initializing the Signal with an initial team members list
   teamMembers = signal<teamMembers[]>([]);
-  IkigaiID = '';//To Save/update Ikigai Data
+  IkigaiID = ''; //To Save/update Ikigai Data
 
   //For Action Items Tab
   ActionItems: ActionItems[] = [];
   dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  displayedColumns: string[] = ["feedback", "category", "addedOn", "status"];
+  displayedColumns: string[] = ['feedback', 'category', 'addedOn', 'status'];
   feedbackCategories: Category[] = [];
   feedbackStatus: Action[] = [];
   selectedFeedbackCategory: string = '';
   selectedFeedbackStatus: string = '';
-
 
   //Snackbar
   showSnackbar: boolean = false;
@@ -89,7 +121,7 @@ export class IkigaiTeamsComponent implements OnInit {
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
-    ['bullet_list'],//'ordered_list', 
+    ['bullet_list'], //'ordered_list',
     //[{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
@@ -120,8 +152,9 @@ export class IkigaiTeamsComponent implements OnInit {
   getMasterData() {
     // Call the service to get the master data
     this.loader = true;
-    this._ikigaiService.GetMasterData()
-      .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+    this._ikigaiService
+      .GetMasterData()
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
       .subscribe({
         next: (response) => {
           this.loader = false;
@@ -130,13 +163,12 @@ export class IkigaiTeamsComponent implements OnInit {
             this.feedbackCategories = response.category;
             // Bind the feedback action
             this.feedbackStatus = response.actions;
-          }
-          else {
-            // Handle the failure response here            
+          } else {
+            // Handle the failure response here
             this.handleError(response.remarks);
           }
         },
-        error: (error) => {         
+        error: (error) => {
           this.handleError(error);
         },
       });
@@ -147,12 +179,13 @@ export class IkigaiTeamsComponent implements OnInit {
     //call the service to get all team members based on teamID
     this.teamID = this.route.snapshot.paramMap.get('id')!;
     this.teamName = this.route.snapshot.paramMap.get('teamname')!;
-    this._ikigaiService.GetTeamMembersByTeamID({
-      TeamID: this.teamID,//1
-      Month: '',//1
-      Year: '',//2024   
-    })
-      .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+    this._ikigaiService
+      .GetTeamMembersByTeamID({
+        TeamID: this.teamID, //1
+        Month: '', //1
+        Year: '', //2024
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
       .subscribe({
         next: (response) => {
           this.loader = false;
@@ -164,17 +197,18 @@ export class IkigaiTeamsComponent implements OnInit {
               // Loop through each team member to assign random avatars
               for (let i = 0; i < response.teamMembers.length; i++) {
                 const gender = response.teamMembers[i].gender;
-                response.teamMembers[i].empPicture = this.getRandomImage(gender);
+                response.teamMembers[i].empPicture =
+                  this.getRandomImage(gender);
               }
               // Set the signal with the fetched navigation data
               this.teamMembers.set(response.teamMembers);
               //get Ikigai Data of first employee in the list
-              this.getEmployeeIkigaiData(response.teamMembers[0].empID, response.teamMembers[0].empName);
-            }
-            else
-              this.handleError('No Data Found');
-          }
-          else {
+              this.getEmployeeIkigaiData(
+                response.teamMembers[0].empID,
+                response.teamMembers[0].empName
+              );
+            } else this.handleError('No Data Found');
+          } else {
             // Handle the failure response here
             this.handleError(response.remarks);
           }
@@ -187,47 +221,62 @@ export class IkigaiTeamsComponent implements OnInit {
 
   getEmployeeIkigaiData(empID: string, empName: string) {
     this.loader = true;
-    this.isKigigaiDataAvailable = false;//defualt to false
+    this.isKigigaiDataAvailable = false; //defualt to false
     this.selectedEmpID = empID;
     this.selectedEmpName = empName;
-    this._ikigaiService.GetIkigaiActionItemsByUserID({ empID: empID, Month: this.DataQueriedMonth, Year: this.DataQueriedYear })
-      .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+    this._ikigaiService
+      .GetIkigaiActionItemsByUserID({
+        empID: empID,
+        Month: this.DataQueriedMonth,
+        Year: this.DataQueriedYear,
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
       .subscribe({
         next: (response) => {
           this.loader = false;
           if (response?.isValid) {
-            this.goingGoodform.get('content')?.setValue(response.goingGoodsHTML);
-            this.keyImprovementsForm.get('content')?.setValue(response.keyImprovementsHTML);
+            this.goingGoodform
+              .get('content')
+              ?.setValue(response.goingGoodsHTML);
+            this.keyImprovementsForm
+              .get('content')
+              ?.setValue(response.keyImprovementsHTML);
             this.goingGoodDisabled = true;
             this.IkigaiID = response.ikigaiID;
             this.KeyImprovementsDisabled = true;
             this.isKigigaiDataAvailable = true;
             // Bind Action Items Tab Data
             this.ActionItems = response.actionItems;
-            this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
+            this.dataSource = new MatTableDataSource<ActionItems>(
+              this.ActionItems
+            );
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-          }
-          else {
+          } else {
             this.goingGoodform.controls['content'].setValue('');
             this.keyImprovementsForm.controls['content'].setValue('');
             this.goingGoodDisabled = false;
             this.KeyImprovementsDisabled = false;
             //Clear the Action Items Tab Data
             this.ActionItems = [];
-            this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
+            this.dataSource = new MatTableDataSource<ActionItems>(
+              this.ActionItems
+            );
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           }
         },
-        error: (error) => {         
+        error: (error) => {
           this.handleError(error);
         },
       });
   }
   private handleError(error: any): void {
     this.loader = false;
-    this.showSnackBar(CustomErrorHandler.handleError(error), SnackBarType.Error);  
+    this.showSnackBar(
+      CustomErrorHandler.handleError(error),
+      SnackBarType.Error
+    );
   }
 
   toggleEditIcon(panelName: string) {
@@ -240,8 +289,7 @@ export class IkigaiTeamsComponent implements OnInit {
     else if (panelName === PanelList.CancelFeedBack) {
       this.goingGoodDisabled = true;
       this.KeyImprovementsDisabled = true;
-    }
-    else if (panelName === PanelList.CancelActionItem) {
+    } else if (panelName === PanelList.CancelActionItem) {
       this.improvementFeedbacksDisabled = true;
     }
   }
@@ -260,10 +308,14 @@ export class IkigaiTeamsComponent implements OnInit {
     //   (this.empform.controls[key as keyof typeof this.empform.controls] as FormControl).markAsTouched();
     // });
 
-    //or 
+    //or
 
-    Object.values(this.keyImprovementsForm.controls).forEach(control => control.markAsTouched());
-    Object.values(this.goingGoodform.controls).forEach(control => control.markAsTouched());
+    Object.values(this.keyImprovementsForm.controls).forEach((control) =>
+      control.markAsTouched()
+    );
+    Object.values(this.goingGoodform.controls).forEach((control) =>
+      control.markAsTouched()
+    );
   }
 
   SaveIkigaiData() {
@@ -283,38 +335,42 @@ export class IkigaiTeamsComponent implements OnInit {
         Year: parseInt(this.DataQueriedYear),
         KeyImprovementsList: [],
         GoingGoodHTML: GoingGoodHTML,
-        KeyImprovementsHTML: KeyIMprovementHTML
+        KeyImprovementsHTML: KeyIMprovementHTML,
       };
       // Parse KeyIMprovementHTML into a DOM structure
-      const doc = new DOMParser().parseFromString(KeyIMprovementHTML, 'text/html');
+      const doc = new DOMParser().parseFromString(
+        KeyIMprovementHTML,
+        'text/html'
+      );
       const arrayFromElements: string[] = [];
 
       // Extract text content from relevant elements
       Array.from(doc.body.children).forEach((child: Element) => {
-        if (child.tagName === "UL" || child.tagName === "OL") {
+        if (child.tagName === 'UL' || child.tagName === 'OL') {
           // If the element is a list, get all list items
           const listItems = child.querySelectorAll('li');
           listItems.forEach((li) => {
-            arrayFromElements.push(li.textContent?.trim() || ""); // Add trimmed text content
+            arrayFromElements.push(li.textContent?.trim() || ''); // Add trimmed text content
           });
         } else {
           // For other elements, add their text content
-          arrayFromElements.push(child.textContent?.trim() || "");
+          arrayFromElements.push(child.textContent?.trim() || '');
         }
       });
       // Filter out empty strings
-      const cleanArray = arrayFromElements.filter(text => text !== "");
+      const cleanArray = arrayFromElements.filter((text) => text !== '');
       // Map the cleaned array into the required structure
       apiRequest.KeyImprovementsList = cleanArray.map((feedback, index) => ({
         actionStatusID: 0,
         categoryID: 0,
         keyImprovementDesc: feedback,
-        keyImprovementsID: ''
+        keyImprovementsID: '',
       }));
 
       //Call the service to save the data
-      this._ikigaiService.SaveGoingGoodAndKeyImprovements(apiRequest)
-        .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+      this._ikigaiService
+        .SaveGoingGoodAndKeyImprovements(apiRequest)
+        .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
         .subscribe({
           next: (response) => {
             this.loader = false;
@@ -323,10 +379,11 @@ export class IkigaiTeamsComponent implements OnInit {
               this.goingGoodDisabled = false;
               this.KeyImprovementsDisabled = false;
               this.showSnackBar(response.remarks, SnackBarType.Success);
-              this.getEmployeeIkigaiData(this.selectedEmpID, this.selectedEmpName);
-
-            }
-            else {
+              this.getEmployeeIkigaiData(
+                this.selectedEmpID,
+                this.selectedEmpName
+              );
+            } else {
               this.showSnackBar(response.remarks, SnackBarType.Error);
             }
           },
@@ -350,7 +407,7 @@ export class IkigaiTeamsComponent implements OnInit {
     this.showSnackbar = true;
     this.snackbarMessge = message;
     this.snackbarType = msgType;
-  }
+  };
 
   CloseSnackBar() {
     this.showSnackbar = false;
@@ -363,20 +420,24 @@ export class IkigaiTeamsComponent implements OnInit {
   SaveActionItem() {
     const apiRequest: SaveActionItemRequest = {
       LoggedInUserEmpID: localStorage.getItem('LoggedInEmployeeID') ?? '',
-      actionItem: this.ActionItems.map((x) => ({ actionItemID: x.actionItemID, categoryID: x.categoryID, statusID: x.actionStatusID }))
+      actionItem: this.ActionItems.map((x) => ({
+        actionItemID: x.actionItemID,
+        categoryID: x.categoryID,
+        statusID: x.actionStatusID,
+      })),
     };
 
     //console.log('API Request:', apiRequest);
     //Call the service to save the data
-    this._ikigaiService.SaveActionItems(apiRequest)
-      .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+    this._ikigaiService
+      .SaveActionItems(apiRequest)
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
       .subscribe({
         next: (response) => {
           this.loader = false;
           if (response?.isValid) {
             this.showSnackBar(response.remarks, SnackBarType.Success);
-          }
-          else {
+          } else {
             this.showSnackBar(response.remarks, SnackBarType.Error);
           }
         },
@@ -392,7 +453,7 @@ export class IkigaiTeamsComponent implements OnInit {
 
     // Check if the typed character is a forbidden one
     if (forbiddenCharacters.includes(key)) {
-      event.preventDefault();  // Prevent the character from being entered
+      event.preventDefault(); // Prevent the character from being entered
       alert('This character is not allowed!');
     }
   }

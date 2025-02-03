@@ -185,10 +185,10 @@
 
 /// Card Layout
 .section__card{
-  @extend .bg-white;
+  // @extend .bg-white;
   margin: $spacing;
-  border: $border-component;
-  border-radius: $border-radius;
+  // border: $border-component;
+  // border-radius: $border-radius;
   &__header{
     @extend .flex-container,.space-between;
     width: 100%;
@@ -204,13 +204,16 @@
     @extend .flex-container,.wrap;
     padding: $spacing $spacing*2;
     .card{
-      @extend .grid-container;
-      min-width: 300px;
-      min-height: 150px;
+      @extend .grid-container, .bg-white;
+      min-width: 350px;
+      max-width: 350px;
+      min-height: 200px;
       padding: $spacing;
       border: $border-component;
       border-radius: $border-radius;
-      box-shadow: $box-shadow-default;
+      &:hover{
+        box-shadow: $box-shadow-default;
+      }
       *{
         padding: 0;
         margin: 0;
@@ -218,6 +221,8 @@
       .avatar__container{
         @extend .flex-container;
         gap: 0;
+        width: 215px;
+        overflow: hidden;
         .avatar{
           width: 2.25rem;
           height: 2.25rem;
@@ -226,6 +231,9 @@
         }
         &.collapse .avatar{
           margin-left: -.62rem;
+          &:first-child{
+            margin-left: 0;
+          }
         }
       }
     }

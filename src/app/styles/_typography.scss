@@ -13,7 +13,8 @@ h1, h2, h3,.subHeading{
   font-weight: $font-weight-heading;
   line-height: $line-height-heading;
   margin-bottom: $spacing-heding;
-  font-family: $font-family-base;
+  // font-family: $font-family-base;
+  font-family: $font-family-base-links;
 }
 
 h1{
@@ -29,7 +30,8 @@ h4,h5,h6{
   font-weight: $font-weight-heading;
   line-height: $line-height-base;
   margin-bottom: $spacing;
-  font-family: $font-family-base;
+  // font-family: $font-family-base;
+  font-family: $font-family-base-links;
 }
 
 p,span,a{

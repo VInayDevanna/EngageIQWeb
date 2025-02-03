@@ -4,26 +4,26 @@ import { homepageTeamsResponse } from '../../../../core/models/hompage/homepage.
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackBarType, StaticImages } from '../../../../Shared/shared.classes';
 import { Router } from '@angular/router';
-import { LoaderComponent } from "../../../components/loader/loader.component";
-import { SnackbarComponent } from "../../../components/snackbar/snackbar.component";
+import { LoaderComponent } from '../../../components/loader/loader.component';
+import { SnackbarComponent } from '../../../components/snackbar/snackbar.component';
 import { CustomErrorHandler } from '../../../../Shared/custom.errormessage';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-ikigai-homepage',
   standalone: true,
-  imports: [LoaderComponent, SnackbarComponent],
+  imports: [LoaderComponent, SnackbarComponent, MatTooltipModule],
   templateUrl: './ikigai-homepage.component.html',
-  styleUrl: './ikigai-homepage.component.scss'
+  styleUrl: './ikigai-homepage.component.scss',
 })
 export class IkigaiHomepageComponent implements OnInit {
-
   //Inject Usecase to call the api
   private router = inject(Router);
   private homePageService = inject(HomePageService);
   private destroyRef = inject(DestroyRef);
   DataDisplayingMonth = '';
   loader: boolean = false;
-  // Initializing the Signal with an initial menu list 
+  // Initializing the Signal with an initial menu list
   TeamsStatisticData = signal<homepageTeamsResponse[]>([]);
   //Snackbar
   showSnackbar: boolean = false;
@@ -31,18 +31,18 @@ export class IkigaiHomepageComponent implements OnInit {
   snackbarType!: string;
 
   ngOnInit(): void {
-
     this.loader = true;
-    //call Homepage Service  
-    this.homePageService.GetHomePageData({
-      Page: '',//1
-      PageSize: '',//50
-      TeamID: '',//1
-      Month: '',//1
-      Year: '',//2024
-      OneToOneStatus: '',//true or false
-    })
-      .pipe(takeUntilDestroyed(this.destroyRef))  // Automatically unsubscribe on destroy
+    //call Homepage Service
+    this.homePageService
+      .GetHomePageData({
+        Page: '', //1
+        PageSize: '', //50
+        TeamID: '', //1
+        Month: '', //1
+        Year: '', //2024
+        OneToOneStatus: '', //true or false
+      })
+      .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
       .subscribe({
         next: (response) => {
           this.loader = false;
@@ -51,21 +51,28 @@ export class IkigaiHomepageComponent implements OnInit {
             this.DataDisplayingMonth = response.dataQueriedMonth;
             // Loop through each team and then loop through each team member to assign random avatars
             for (let i = 0; i < response.teams.length; i++) {
-              for (let j = 0; j < response.teams[i].teamMembersList.length; j++) {
+              for (
+                let j = 0;
+                j < response.teams[i].teamMembersList.length;
+                j++
+              ) {
                 const teamMember = response.teams[i].teamMembersList[j];
-                response.teams[i].teamMembersList[j].empPicture = this.getRandomImage(teamMember.empGender);
+                response.teams[i].teamMembersList[j].empPicture =
+                  this.getRandomImage(teamMember.empGender);
               }
             }
             this.TeamsStatisticData.set(response.teams);
-          }
-          else {
+          } else {
             // Handle the failure response here
             this.showSnackBar(response.remarks, SnackBarType.Error);
           }
         },
         error: (error) => {
           this.loader = false;
-          this.showSnackBar(CustomErrorHandler.handleError(error), SnackBarType.Error);    
+          this.showSnackBar(
+            CustomErrorHandler.handleError(error),
+            SnackBarType.Error
+          );
         },
       });
   }
@@ -83,10 +90,9 @@ export class IkigaiHomepageComponent implements OnInit {
     this.showSnackbar = true;
     this.snackbarMessge = message;
     this.snackbarType = msgType;
-  }
+  };
 
   CloseSnackBar() {
     this.showSnackbar = false;
   }
-
 }
