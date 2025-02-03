@@ -1,27 +1,17 @@
 <header class="header">  
   <section class="header__logo">
-    <img class="header__logo__img" src="assets/main-images/LoginImage.png" alt="LoginImage">
-    <h3 class="header__logo__title">ENGAGE IQ</h3>
+    <img class="header__logo__img" src="assets/main-images/LoginImage.png" width="20px" height="30px" alt="LoginImage">
+    <h3 class="header__logo__title">Engage-IQ</h3>
   </section>
   <section class="header__title">
     <section class="header__title__userDetails">
-      <img class="header__title__userDetails__img" src="/assets/Avatars/F/Gemini_Generated_Image_7sa0nr7sa0nr7sa0.jpeg"/>
-      @if(this.LoggedInUserName){
-        <section class="header__title__userDetails__name">{{this.LoggedInUserName}}</section>
-      }
-      @else {
-        <section class="header__title__userDetails__name">Priyadharshini</section>
-      }
-      <section class="header__title__userDetails__welcomeMessage">Hello, Welcome back!</section>
+      <img class="header__title__userDetails__img" src="{{GenderImagePath}}"/>
+      <section class="header__title__userDetails__name">{{loggedInUserName}} ({{LoggedInUserRole}})</section>      
+      <section class="header__title__userDetails__welcomeMessage">Hello, Welcome back!</section>     
     </section>
     <section class="header__title__companyDetails">
       <img src="/assets/main-images/DevonLogo.png" alt="" class="header__title__companyDetails__companyImage">
-      @if(this.LastLogin){
-        <span class="header__title__companyDetails__logout">Last Logged in {{this.LastLogin}}</span>
-      }
-      @else {
-        <span class="header__title__companyDetails__logout">Last Logged in DD/MM/YYYY</span>
-      }
+      <span class="header__title__companyDetails__logout">Last Logged in {{lastLoginTime}}</span>
     </section>
   </section>
 </header>

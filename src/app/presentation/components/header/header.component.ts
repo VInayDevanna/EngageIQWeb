@@ -10,34 +10,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private authService: MsalService) {}
-  private navigationService = inject(NavigationService);
-  private destroyRef = inject(DestroyRef);
-  LoggedInUserName = '';
+  loggedInUserName = '';
+  lastLoginTime = '';
   LoggedInUserRole = '';
-  LastLogin = '';
   GenderImagePath = '';
-  UserEmpID = '';
   ngOnInit(): void {
     //get last login from local storage
-    (this.LastLogin = localStorage.getItem('LastLogin') ?? ''),
-      //call Navigation Menu Service
-      this.navigationService
-        .GetNavigationMenusBasedOnUser()
-        .pipe(takeUntilDestroyed(this.destroyRef)) // Automatically unsubscribe on destroy
-        .subscribe({
-          next: (response) => {
-            if (response.isValid) {
-              this.LoggedInUserName = response.userName;
-              this.LoggedInUserRole = response.roleName;
-              this.UserEmpID = response.userID;
-              console.log('UserName', this.LoggedInUserName);
-            } else {
-            }
-          },
-          error: (error) => {
-            console.log('Error', error);
-          },
-        });
+    this.lastLoginTime = localStorage.getItem('LastLogin') ?? '';
+    this.loggedInUserName = localStorage.getItem('LoggedInUsername') ?? '';
+    this.LoggedInUserRole = localStorage.getItem('LoggedInUserRole') ?? '';
+    if (localStorage.getItem('Gender')?.toString() === 'MALE')
+      this.GenderImagePath = 'assets/Avatars/M/Default.jpeg';
+    else this.GenderImagePath = 'assets/Avatars/F/Default.jpeg';
   }
 }

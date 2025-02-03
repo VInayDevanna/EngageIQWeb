@@ -13,6 +13,7 @@ export class ApiNames
   static readonly Login = 'Login';
   static readonly GetRoles = 'Role/GetRoles';
   static readonly SaveRoles = 'Role/SaveRole';
+  static readonly SignalRTest = 'Test';
 }
 
 export class HttpMethod

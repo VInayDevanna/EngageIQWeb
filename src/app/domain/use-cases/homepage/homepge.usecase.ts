@@ -3,6 +3,7 @@ import { ApiService } from "../../../core/services/api.service";
 import { ApiNames, HttpMethod } from "../../../Shared/shared.classes";
 import { HomePageResponse } from "../../../core/models/hompage/homepage.model";
 import { HttpParams } from "@angular/common/http";
+import { CommonResponse } from "../../../core/models/ikigai-individual/ikigaiIndividual.model";
 
 @Injectable({ providedIn: "root" })
 export class HomePageService {
@@ -19,5 +20,9 @@ export class HomePageService {
           );
 
       return this.apiService.callApi<HomePageResponse>(ApiNames.GetTeamStatistics, HttpMethod.GET, undefined, undefined, params);
-  }
+    }  
+
+    SendNotification(message: string) {
+      return this.apiService.callApi<CommonResponse>(ApiNames.SignalRTest, HttpMethod.POST, message);
+    }
 }

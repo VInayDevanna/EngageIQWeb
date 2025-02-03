@@ -23,7 +23,7 @@ export class SnackbarComponent {
         snackbarComponent?.classList.remove('showSnackBar');
         this.closeSnackBar.emit();
       }
-    }, 3000);
+    }, 15000);
     if (this.SnackBarType === 'error') {
       snackbar?.classList.add('error-message');
     } else {

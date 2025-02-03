@@ -36,6 +36,7 @@ export class SideNavComponent implements OnInit {
   // Initializing the Signal with an initial menu list
   sideNavMenus = signal<NavMenu[]>([]);
   sidenavTeamsLinks = signal<NavTeamIndividualResponse[]>([]); //signal<NavTeamResponse = {} as NavTeamResponse;
+  showDocumentationMenu = true;
 
   ngOnInit(): void {
     //get last login from local storage
@@ -51,7 +52,6 @@ export class SideNavComponent implements OnInit {
               this.LoggedInUserName = response.userName;
               this.LoggedInUserRole = response.roleName;
               this.UserEmpID = response.userID;
-              console.log('UserName', this.LoggedInUserName);
               //save UserEMpID in local storage
               localStorage.setItem('LoggedInEmployeeID', this.UserEmpID);
               if (response.gender.toUpperCase() === 'MALE')
