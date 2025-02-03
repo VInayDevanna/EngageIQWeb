@@ -1,52 +1,11 @@
 <section class="section ikigai">
   <section class="section__header">
-    <h3>Teams IKIGAI Progress- Dec 2024</h3>
+    <h3>Teams IKIGAI Progress- {{DataDisplayingMonth}}</h3>
     <span>Looking for past IKIGAI data? Check Timeline tab for details</span>
   </section>
   <section class="section__card">
-    <h6 class="section__title">Teams</h6>
-    <!--Card Header-->
-    <!-- <section class="section__card__header">
-      <h6 class="middle--section"></h6>
-      <button class="right--section secondary">{{DataDisplayingMonth}}</button>
-    </section> -->
-    <!--Card Section-->
+    <h6 class="section__title">Teams</h6> 
     <section class="section__card__container">
-
-      <!-- <section class="card card__2">
-        <p class="card__section title">Enhancers[Exact]</p>
-        <p class="card__section phrase">Placeholder for catchphrase</p>
-        <p class="card__section role"><b>SM:</b> Harsha</p>
-        <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">6</h6></section>        
-        <section class="card__section avatar__container collapse">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-        </section>
-        <section class="card__section actions">
-          <button class="start">Start</button>
-        </section>
-      </section>
-      <section class="card card__3">
-        <p class="card__section title">Mavericks[Exact]</p>
-        <p class="card__section phrase">Placeholder for catchphrase</p>
-        <p class="card__section role"><b>SM:</b> Palvi</p>
-        <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">6</h6></section>
-        <section class="card__section avatar__container collapse">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-          <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-          <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-        </section>
-        <section class="card__section actions">
-          <button class="view">View</button>
-        </section>
-      </section> -->
       @for (item of TeamsStatisticData(); track item.teamID) {
         <section class="card card__1">
           <p class="card__section title">{{item.teamName}}</p>

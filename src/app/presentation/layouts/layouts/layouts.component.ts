@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 export class LayoutsComponent {
   LoginScreen: boolean = true;
   scroll: boolean = false;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   ngOnInit() {
     this.router.events.subscribe(() => {
       const currentRoute = this.router.url;
@@ -39,13 +39,11 @@ export class LayoutsComponent {
       document.documentElement.getElementsByClassName('content')[0].scrollTop >
       0
     ) {
-      console.log('Header Scrolls is working');
       this.scroll = true;
       document
         .getElementsByClassName('content__header')[0]
         .classList.add('scroll');
     } else {
-      console.log('Header Scrolls is not working');
       this.scroll = false;
       document
         .getElementsByClassName('content__header')[0]

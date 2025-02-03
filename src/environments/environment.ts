@@ -4,8 +4,8 @@
 
 import { EnvironmentConfiguration } from '../app/core/models/environment-configuration';
 
- //const serverUrl='https://localhost:7100/api/';//'http://135.225.39.141:7000/api/';//'https://engageiqapi.azurewebsites.net/api/'; //
-const serverUrl = 'https://135.225.39.141:8000/api/'; //'https://engageiqapi.azurewebsites.net/api/'; //
+// const serverUrl='https://localhost:7100/api/';
+const serverUrl = 'https://135.225.39.141:8000/api/'; 
 
 // The list of file replacements can be found in `angular.json`.
 export const environment: EnvironmentConfiguration = {

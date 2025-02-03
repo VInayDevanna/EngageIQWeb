@@ -241,7 +241,7 @@ export class IkigaiTeamsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.loader = false;
-          if (response?.isValid) {
+          if (response?.isValid) {            
             this.goingGoodform
               .get('content')
               ?.setValue(response.goingGoodsHTML);
@@ -251,7 +251,7 @@ export class IkigaiTeamsComponent implements OnInit {
             this.goingGoodDisabled = true;
             this.IkigaiID = response.ikigaiID;
             this.KeyImprovementsDisabled = true;
-            this.isKigigaiDataAvailable = true;
+            this.isKigigaiDataAvailable = response.goingGoodsHTML !== '';
             // Bind Action Items Tab Data
             this.ActionItems = response.actionItems;
             this.dataSource = new MatTableDataSource<ActionItems>(

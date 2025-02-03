@@ -1,6 +1,6 @@
 <section class="section dashboard">
   <section class="section__header">
-    <h3>Your Teams This Month - Dec 2024</h3>
+    <h3>Your Teams - {{DisplayingMonthAndYear}}</h3>
     <span>Get a quick overview of Ikigai, 1:1 Connect and team progress</span>
   </section>
   <section class="section__dashboard__container">
@@ -12,103 +12,48 @@
          <section class="card__section dashboard__data">
            <section class="dashboard__numbers">
               <p>Teams</p>
-              <span>12</span>
+              <span>{{totalTeamCount}}</span>
            </section>
            <section class="dashboard__numbers">
               <p>Scrum Masters</p>
-              <span>9</span>
+              <span>{{totalScrumMastersCount}}</span>
            </section>
            <section class="dashboard__numbers">
               <p>Team Members</p>
-              <span>95</span>
+              <span>{{totalTeamMembersCount}}</span>
            </section>
          </section>    
         </section>
         <section class="card card__2">
-          <p class="card__section title">Ikigai Status</p>     
+          <p class="card__section title">IKIGAI Status</p>     
           <section class="card__section dashboard__data">
             <section class="dashboard__numbers">
                <p>Completed</p>
-               <span>12</span>
+               <span>{{IKIGAICompletedTeamCount}}</span>
             </section>
             <section class="dashboard__numbers">
                <p>Pending</p>
-               <span>9</span>
+               <span>{{IKIGAIPendingTeamsCount}}</span>
             </section>
           </section>  
         </section>
         <section class="card card__3">
-          <p class="card__section title">Placeholder</p>
+          <p class="card__section title">One To One Status Placeholder</p>
         </section>
       </section>
     </section>
   </section>
   <section class="section__card">
-    <h6 class="section__title">Teams</h6>
-    <!-- <section class="section__card__header">
-      <button class="left--section primary">Filter</button>     
-      <button class="right--section secondary">{{DataDisplayingMonth}}</button>
-    </section> -->
-    <section class="section__card__container">
-      <!-- <section class="card card__1">
-        <p class="card__section title">Kalopsia[Exact]</p>
-        <p class="card__section phrase">Placeholder for catchphrase</p>
-        <p class="card__section role" matTooltip="Sritaj Kumar Rajat Patel Singh" matTooltipPosition="above"><b>SM:</b> <span>Sritaj Kumar Rajat Patel Singh</span></p>
-        <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">6</h6></section>
-        <section class="card__section avatar__container collapse">
-         <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-         <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-         <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-         <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-         <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-         <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-         <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-         <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-         <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-        </section>
-        <section class="card__section">
-         <section class="ikigai">
-           <h6>IKIGAI:</h6>
-           <span class="status success"></span>
-         </section>
-         <section  class="OnetoOneConnect">
-           <h6>1:1 :</h6>
-           <span class="status danger"></span>
-         </section>
-        </section>
-       </section>
-       <section class="card card__2">
-         <p class="card__section title">Enhancers[Exact]</p>
-         <p class="card__section phrase">Placeholder for catchphrase</p>
-         <p class="card__section role"><b>SM:</b> Harsha</p>
-         <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">6</h6></section>        
-         <section class="card__section avatar__container collapse">
-           <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-           <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-           <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-           <img class="avatar" src="assets/Avatars/F/Gemini_Generated_Image_juzxejjuzxejjuzx.jpeg" alt="Female">
-           <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male">
-         </section>
-         <section class="card__section">
-           <section class="ikigai">
-             <h6>IKIGAI:</h6>
-             <span class="status success"></span>
-           </section>
-           <section  class="OnetoOneConnect">
-             <h6>1:1 :</h6>
-             <span class="status danger"></span>
-           </section>
-          </section>
-       </section> -->
-      
+    <h6 class="section__title">Teams</h6>   
+    <section class="section__card__container">    
       @for (item of TeamsStatisticData(); track item.teamID) {
         <section class="card card__1">
           <p class="card__section title">{{item.teamName}}</p>
           @if (item !==undefined) {
-            <p class="card__section phrase" >Placeholder for catchphrase</p>
+            <p class="card__section phrase" >Placeholder for phrase</p>
           } 
           @else {
-            <p class="card__section phrase">Placeholder for catchphrase</p>
+            <p class="card__section phrase">Placeholder for phrase</p>
           }
           <p class="card__section role" matTooltip={{item.teamSMName}} matTooltipPosition="above"><b>SM:</b> {{item.teamSMName}}</p>
           <section class="card__section members"><h6>Members:</h6> <h6 class="members_count">{{item.totalTeamMembersCount}}</h6></section>
@@ -119,7 +64,7 @@
           </section>
           <section class="card__section">
             <section class="ikigai">
-              <h6>IKIGAI:</h6>
+              <h6>IKIGAI</h6>
               @if (item.ikigaiStatus) {
                 <span class="status success"></span>
               } 
@@ -128,7 +73,7 @@
               }
             </section>
             <section  class="OnetoOneConnect">
-              <h6>1:1 :</h6>
+              <h6>1:1</h6>
               @if(item.totalOnetoOneCompletedCount==item.totalTeamMembersCount) {
                 <span class="status success"></span>
               }
@@ -136,14 +81,7 @@
                 <span class="status danger"></span>
               }
             </section>
-           </section>
-          <!-- @if(item.ikigaiStatus){
-            <h6 class="card__section ikigai">IKIGAI: ✅</h6>
-          }
-          @else {
-            <h6 class="card__section ikigai">IKIGAI: ❌</h6>
-          }          
-          <h6 class="card__section 1:1Connect">1:1 Connect: {{item.totalOnetoOneCompletedCount}}/{{item.totalTeamMembersCount}}</h6> -->
+           </section>        
         </section>
       }     
     </section>

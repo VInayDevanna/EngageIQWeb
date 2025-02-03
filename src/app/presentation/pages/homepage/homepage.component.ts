@@ -1,10 +1,7 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  HomePageResponse,
-  homepageTeamsResponse,
-} from '../../../core/models/hompage/homepage.model';
+import { homepageTeamsResponse } from '../../../core/models/hompage/homepage.model';
 import { HomePageService } from '../../../domain/use-cases/homepage/homepge.usecase';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackBarType, StaticImages } from '../../../Shared/shared.classes';
@@ -31,11 +28,14 @@ export class HomepageComponent implements OnInit {
   private homePageService = inject(HomePageService);
   private destroyRef = inject(DestroyRef);
   ErrorMessage = '';
-  DataDisplayingMonth = '';
+  DisplayingMonthAndYear = '';
   IKIGAICompletedTeamCount = 0;
   IKIGAIPendingTeamsCount = 0;
   OneToOneCompletedCount = 0;
   OneToOnePendingCount = 0;
+  totalTeamCount=0;
+  totalTeamMembersCount=0;
+  totalScrumMastersCount=0;
 
   // Initializing the Signal with an initial menu list
   TeamsStatisticData = signal<homepageTeamsResponse[]>([]);
@@ -62,8 +62,13 @@ export class HomepageComponent implements OnInit {
         next: (response) => {
           this.loader = false;
           if (response.isValid) {
-            // Set the signal with the fetched navigation data
-            this.DataDisplayingMonth = response.dataQueriedMonth;
+            //set Team Overview
+            this.totalScrumMastersCount = response.teamOverview.totalScrumMastersCount;
+            this.totalTeamCount = response.teamOverview.totalTeamCount;
+            this.totalTeamMembersCount = response.teamOverview.totalTeamMembersCount;
+
+            // Set Ikigai Overview
+            this.DisplayingMonthAndYear = response.dataQueriedMonth + " " + response.dataQueriedYear;
             this.IKIGAICompletedTeamCount =
               response.dashboardHighlights.ikigaiCompletedTeamCount;
             this.IKIGAIPendingTeamsCount =
@@ -73,6 +78,7 @@ export class HomepageComponent implements OnInit {
             this.OneToOnePendingCount =
               response.dashboardHighlights.oneToOneTotalPendingCount;
 
+            //Display Team Information
             // Loop through each team and then loop through each team member to assign random avatars
             for (let i = 0; i < response.teams.length; i++) {
               for (
@@ -86,6 +92,7 @@ export class HomepageComponent implements OnInit {
               }
             }
             this.TeamsStatisticData.set(response.teams);
+
           } else {
             // Handle the failure response here
             this.ErrorMessage = response.remarks;
@@ -117,15 +124,15 @@ export class HomepageComponent implements OnInit {
     this.showSnackbar = false;
   }
 
-  TestNotification() {    
+  TestNotification() {
     this.homePageService.SendNotification('This is a Real time notification from Button Click event')
-    .subscribe({
-      next: () => {
-        //console.log('SignalR API called successfully');
-      },
-      error: (err) => {
-        console.error('Error sending notification: ', err);
-      }
-    });
+      .subscribe({
+        next: () => {
+          //console.log('SignalR API called successfully');
+        },
+        error: (err) => {
+          console.error('Error sending notification: ', err);
+        }
+      });
   }
 }

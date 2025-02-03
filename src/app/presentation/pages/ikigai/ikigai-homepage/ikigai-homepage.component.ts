@@ -48,7 +48,7 @@ export class IkigaiHomepageComponent implements OnInit {
           this.loader = false;
           if (response.isValid) {
             // Set the signal with the fetched navigation data
-            this.DataDisplayingMonth = response.dataQueriedMonth;
+            this.DataDisplayingMonth = response.dataQueriedMonth+" "+response.dataQueriedYear;
             // Loop through each team and then loop through each team member to assign random avatars
             for (let i = 0; i < response.teams.length; i++) {
               for (

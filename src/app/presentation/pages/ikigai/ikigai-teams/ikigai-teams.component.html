@@ -1,6 +1,6 @@
 <section class="section ikigai-teams">
   <section class="section__header">
-    <h3>{{this.selectedEmpName}} IKIGAI Session - Dec 2024</h3>
+    <h3>{{this.selectedEmpName}} IKIGAI Session - {{DataDisplayingMonth + ' ' + DataQueriedYear}}</h3>
     <span>Looking for past IKIGAI data? Check Timeline tab for details</span>
   </section>
   <section class="section__members">
@@ -10,12 +10,7 @@
       <p class="section__members__details__empID">{{this.selectedEmpID}}</p>
      </section>
      <span class="section__members__description">What’s working? What’s not? Open up to align and grow as a team.</span>
-     <section class="section__members__employeeDetailsContainer">
-       <!-- <ng-container *ngFor="let teamMembers of ikigaiIndividualTeams.teamMembersList">
-         <section class="section__members__employeeDetails" (click)="getTeamMembersEmployeeID(teamMembers.empID)">
-           <img class="avatar" src="assets/Avatars/M/Gemini_Generated_Image_mo6jucmo6jucmo6j.jpeg" alt="Male" matTooltip={{teamMembers.empName}}>
-         </section>
-       </ng-container> -->
+     <section class="section__members__employeeDetailsContainer">      
        @for (item of teamMembers(); track item.empID) {
           <ng-container>
             <section class="section__members__employeeDetails" [ngClass]="{

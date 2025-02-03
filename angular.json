@@ -49,7 +49,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/angular-ikigai-frontend-app/"
+              "baseHref": "/EngageIQWeb/"
             },
             "development": {
               "optimization": false,

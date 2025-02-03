@@ -28,6 +28,7 @@ export interface HomePageResponse{
   remarks: string;
   teams: homepageTeamsResponse[];
   dashboardHighlights: dashboardHighlights;
+  teamOverview: teamOverview;
 }
 
 export interface dashboardHighlights{
@@ -35,4 +36,10 @@ export interface dashboardHighlights{
   ikigaiPendingTeamCount : number;
   oneToOneTotalCompletedCount : number;
   oneToOneTotalPendingCount : number;
+}
+
+export interface teamOverview {
+  totalTeamCount: number;
+  totalTeamMembersCount: number;
+  totalScrumMastersCount: number;
 }
