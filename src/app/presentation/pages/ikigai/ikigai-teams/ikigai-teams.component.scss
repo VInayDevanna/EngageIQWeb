@@ -6,23 +6,17 @@
 
 .ikigai-teams{
   .section__members{
-    @extend .flex-container,.wrap,.center;
-    margin: $spacing;
+    @extend .flex-container,.wrap,.space-between;
+    margin: $spacing $spacing*3;
+    align-items: center;
     &__employeeDetailsContainer{
       @extend .flex-container,.center;
       gap: $spacing * 0.25;
       cursor: pointer;
-
-      // @extend .flex-container,.center, .column;
-      // gap: 0;
-      // border: $border-component;
-      // padding: $spacing*0.25 $spacing 0 $spacing;
-      // min-width: 100px;
-
-      // background-color: #bfe1f3;
-      // border: 1px solid #007bff;
-      // border-radius: 4px;
-      // cursor: pointer;
+      // overflow-x: auto;
+      // white-space: nowrap;
+      // scroll-behavior: smooth;
+      // width: 200px;
 
       &.active{
         background-color: #c3e9cc;
@@ -48,7 +42,27 @@
         height: auto;
         border-radius: 50%;
       }
+
+ 
     }
+
+    // .scroll-container {
+    //   display: flex;
+    //   align-items: center;
+    //   width: 275px; /* Adjust as needed */
+    //   overflow: hidden;
+    //   position: relative;
+    // }
+  
+    // .scroll-btn {
+    //   background-color: transparent;
+    //   color: $color-blue-lighter;
+    //   border: none;
+    //   padding: 0.25rem 0.675rem;
+    //   cursor: pointer;
+    //   font-size: 16px;
+    // }
+
     &__details{
       @extend .grid-container;
       @include grid-template-column(100px 1fr);
@@ -77,9 +91,10 @@
     }
   }
   .section__ikigai{
-    margin: $spacing;
+    //margin: $spacing;
     &__feedbacks{
-      @extend .flex-container,.bg-white;
+      @extend .flex-container;
+      gap: 2rem;
       .card{
         box-shadow: none;
         width: 100%;
@@ -87,10 +102,22 @@
       }
       .section__card{
         width: 50%;
+        margin: $spacing 0;
+        // background-color: $color-gray-lighter;
+        background-color: #f6f6f6;
+        border: 1px solid $color-gray;
+        border-radius: $spacing * 0.25;
+        @extend .bg-white;
         &__header{
-          background-color: $color-gray-lighter;
           color: $color-gray-dark;
+          border: 0;
         }
+      }
+    }
+    &__action-items{
+      .section__card{
+        border: 1px solid $color-gray;
+        background-color: #f6f6f6;
       }
     }
   }      
@@ -125,50 +152,6 @@
   font-style: italic;
   color: #888;
 }
-
-// ::ng-deep.mat-mdc-tab-group{
-//   border: 1px solid $color-gray;
-//   border-radius: 8px;  
-//   margin: 16px;
-//   background-color: $color-white;
-//   ::ng-deep.mat-mdc-tab-header{
-//     ::ng-deep.mat-mdc-tab-label-container{
-//       z-index: 0;
-//       border: 1px solid $color-gray;
-//       ::ng-deep.mat-mdc-tab{
-//         &:first-child{
-//           border-top-left-radius: $spacing * 0.5;
-//         }
-//         &:last-child{
-//           border-top-right-radius: $spacing * 0.5;
-//         }
-//         ::ng-deep.mdc-tab__text-label{
-//           padding: $spacing;
-//         }
-//         &.mdc-tab--active{
-//           background-color: $color-blue;
-//           .mdc-tab__text-label{
-//             color: $color-white;
-//           }
-//         }
-//         p,span,a{
-//           margin: 0;
-//           padding: 0;
-//         }
-//         ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content--underline{
-//           border: none;
-//         }
-//       }
-//     }
-//   }
-//   // ::ng-deep.mat-mdc-tab-body-wrapper{
-//   //   margin: $spacing;
-//   //   height: auto;
-//   //   ::ng-deep.mat-mdc-tab-body.mat-mdc-tab-body-active{
-//   //     z-index: 0;
-//   //   }
-//   // }
-// }
 
 ::ng-deep.mat-mdc-tab-group{
   // border: 1px solid $color-gray;
@@ -267,26 +250,6 @@ table{
   }
 }
 
-// .ngx-editor-panel{
-//   border: 1px solid rgba(0, 0, 0, 0.2);
-//   border-radius: 4px;
-//   width: 100%;
-// }
-
-// ::ng-deep.NgxEditor{
-//   margin: $spacing;
-//   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-//   .disabled &{
-//     opacity: 0.5;
-//     pointer-events: none;
-//   }
-//   &__Content{
-//     padding: $spacing $spacing*0.5 !important;
-//     ul, ol{
-//       padding-inline-start: $spacing * 2;
-//     }
-//   }
-// }
 
 .ngx-editor-panel{
   // border: 2px solid rgba(0, 0, 0, 0.2);
@@ -307,7 +270,7 @@ table{
 ::ng-deep.NgxEditor{
   // margin: $spacing;
   border: none !important;
-  min-height: 350px;
+  min-height: 300px;
   // .disabled &{
   //   pointer-events: none;
   // }
