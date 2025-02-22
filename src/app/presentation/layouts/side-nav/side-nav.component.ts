@@ -54,6 +54,8 @@ export class SideNavComponent implements OnInit {
               this.UserEmpID = response.userID;
               //save UserEMpID in local storage
               localStorage.setItem('LoggedInEmployeeID', this.UserEmpID);
+              localStorage.setItem('LoggedInUsername', this.LoggedInUserName);
+              localStorage.setItem('LoggedInUserRole', this.LoggedInUserRole);
               if (response.gender.toUpperCase() === 'MALE')
                 this.GenderImagePath = 'assets/Avatars/M/Default.jpeg';
               else this.GenderImagePath = 'assets/Avatars/F/Default.jpeg';
