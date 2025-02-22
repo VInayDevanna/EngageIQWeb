@@ -6,6 +6,7 @@ import {
   OnInit,
   DestroyRef,
   signal,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -68,11 +69,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './ikigai-teams.component.scss',
 })
 export class IkigaiTeamsComponent implements OnInit {
+
+  constructor(@Inject(LiveAnnouncer) private _liveAnnouncer: LiveAnnouncer,private cdr: ChangeDetectorRef) {}
+
   private _ikigaiService = inject(IkigaiService);
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
-  constructor(@Inject(LiveAnnouncer) private _liveAnnouncer: LiveAnnouncer) {}
+  
 
   teamID: string = '';
   teamName = '';
@@ -88,7 +92,8 @@ export class IkigaiTeamsComponent implements OnInit {
   loader: boolean = false;
   isKigigaiDataAvailable = false;
   showIkigaiConfigScreen = false;
-  noOfDaysLeftToCompleteIkigaiForCurrentMonth = 5;
+  lastDayToCompleteIkigaiForCurrentMonth = 10;
+  noOfDaysLeftToCompleteIkigaiForCurrentMonth = this.getDaysLeftToCompleteIkigai();
   // Expose the enum to your template
   PanelList = PanelList;
 
@@ -102,10 +107,10 @@ export class IkigaiTeamsComponent implements OnInit {
   IkigaiID = ''; //To Save/update Ikigai Data
 
   //For Action Items Tab
-  ActionItems: ActionItems[] = [];
-  dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  ActionItems: ActionItems[] = [];
+  dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
   displayedColumns: string[] = ['feedback', 'category', 'addedOn', 'status'];
   feedbackCategories: Category[] = [];
   feedbackStatus: Action[] = [];
@@ -147,6 +152,17 @@ export class IkigaiTeamsComponent implements OnInit {
 
     //First get the team members based on the teamID and then call the service to get the ikigai data of the first employee in the list
     this.getTemMembersAndBindFirstEmployeeDetails(true, '', '');
+  }
+  
+  getDaysLeftToCompleteIkigai(): number {
+    const today = new Date(); // Get current date
+    const targetDate = new Date(today.getFullYear(), today.getMonth(), this.lastDayToCompleteIkigaiForCurrentMonth); // Set to 10th of current month
+  
+    // Calculate difference in days
+    const diffTime = targetDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+  
+    return diffDays >= 0 ? diffDays : 0; // Return 0 if the date has passed
   }
 
   getMasterData() {
@@ -226,6 +242,13 @@ export class IkigaiTeamsComponent implements OnInit {
   }
 
   getEmployeeIkigaiData(empID: string, empName: string) {
+     // Update validity so validation runs with new data
+    this.goingGoodform.markAsPristine();
+    this.goingGoodform.markAsUntouched();
+
+    this.keyImprovementsForm.markAsPristine();
+    this.keyImprovementsForm.markAsUntouched();
+
     this.loader = true;
     this.IkigaiID = ''; //reset IKIGAI ID
     this.isKigigaiDataAvailable = false; //defualt to false
@@ -254,11 +277,7 @@ export class IkigaiTeamsComponent implements OnInit {
             this.isKigigaiDataAvailable = response.goingGoodsHTML !== '';
             // Bind Action Items Tab Data
             this.ActionItems = response.actionItems;
-            this.dataSource = new MatTableDataSource<ActionItems>(
-              this.ActionItems
-            );
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+            this.showTableData();
           } else {
             this.goingGoodform.controls['content'].setValue('');
             this.keyImprovementsForm.controls['content'].setValue('');
@@ -266,11 +285,7 @@ export class IkigaiTeamsComponent implements OnInit {
             this.KeyImprovementsDisabled = false;
             //Clear the Action Items Tab Data
             this.ActionItems = [];
-            this.dataSource = new MatTableDataSource<ActionItems>(
-              this.ActionItems
-            );
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+            this.showTableData();
           }
         },
         error: (error) => {
@@ -278,6 +293,15 @@ export class IkigaiTeamsComponent implements OnInit {
         },
       });
   }
+  
+  showTableData() {
+    // Force Angular to detect changes before assigning paginator
+    this.cdr.detectChanges();
+    this.dataSource = new MatTableDataSource<ActionItems>(this.ActionItems);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+  
   private handleError(error: any): void {
     this.loader = false;
     this.showSnackBar(
@@ -309,6 +333,7 @@ export class IkigaiTeamsComponent implements OnInit {
       this.keyImprovementsEditor.destroy();
     }
   }
+
   private markAllAsTouched(): void {
     // Use type assertion to tell TypeScript that controls are of type FormControl
     // Object.keys(this.empform.controls).forEach(key => {
@@ -317,16 +342,17 @@ export class IkigaiTeamsComponent implements OnInit {
 
     //or
 
-    Object.values(this.keyImprovementsForm.controls).forEach((control) =>
-      control.markAsTouched()
-    );
-    Object.values(this.goingGoodform.controls).forEach((control) =>
-      control.markAsTouched()
-    );
+    Object.values(this.keyImprovementsForm.controls).forEach((control) => {
+      control.markAsTouched();     
+    });
+  
+    Object.values(this.goingGoodform.controls).forEach((control) => {
+      control.markAsTouched();    
+    });
   }
 
   SaveIkigaiData() {
-    //this.markAllAsTouched();
+    this.markAllAsTouched();
     if (!this.goingGoodform.invalid && !this.keyImprovementsForm.invalid) {
       this.loader = true;
       const GoingGoodHTML = this.goingGoodform.value.content;
@@ -398,7 +424,7 @@ export class IkigaiTeamsComponent implements OnInit {
           error: (error) => {
             this.handleError(error);
           },
-        });
+      });
     }
   }
 

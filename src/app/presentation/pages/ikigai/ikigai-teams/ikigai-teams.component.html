@@ -29,10 +29,17 @@
     <img src="assets/exploding-head-emoji.png" alt="Exploding head emoji" class="emoji-icon">
     <p class="message">
       {{selectedEmpName}}, IKIGAI feedback has not been recorded yet.<br>
+      @if(noOfDaysLeftToCompleteIkigaiForCurrentMonth==0){
+        <strong>IKIGAI sheet for {{DataDisplayingMonth}} is locked. Last day to record was {{DataDisplayingMonth}}-{{lastDayToCompleteIkigaiForCurrentMonth}}.</strong>
+      }
+      @else{
       Please note that there are only <strong>{{noOfDaysLeftToCompleteIkigaiForCurrentMonth}} days</strong> left before
       the IKIGAI sheet for {{DataDisplayingMonth}} is locked.
+      }
     </p>
-    <a href="javascript:void(0)" (click)="setIkigaiDataAvailable()" class="record-link">Click here to record.</a>
+   <!-- // @if(noOfDaysLeftToCompleteIkigaiForCurrentMonth>0){ -->
+     <a href="javascript:void(0)" (click)="setIkigaiDataAvailable()" class="record-link">Click here to record.</a>
+    <!-- } -->
   </div>
   }
 

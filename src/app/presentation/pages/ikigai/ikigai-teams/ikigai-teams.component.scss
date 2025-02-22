@@ -254,6 +254,8 @@ table{
 .ngx-editor-panel{
   // border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  width: 100%;
+  max-width: 100%;
   box-shadow: $box-shadow-default;
   &:has(.disabled ){
     background-color: $color-editor-disabled;

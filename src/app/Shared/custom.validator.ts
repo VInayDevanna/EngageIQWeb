@@ -1,8 +1,10 @@
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 
-// Custom validator to check if value is not zero
 export function EmptyHTMLValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      return control.value === '<p></p>' ? { 'hasValue': true } : null;
-    };
-  }
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if (!control.value || control.value.trim() === '' || control.value === '<p></p>' || control.value === '<p><br></p>') {
+      return { 'emptyHTML': true }; // Return a proper error key
+    }
+    return null;
+  };
+}
