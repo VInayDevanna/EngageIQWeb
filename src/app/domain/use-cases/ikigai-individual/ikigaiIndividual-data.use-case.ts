@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { CommonResponse, IkigaiDataByEmpIDResponse, IkigaiRequest, MasterDataResponse, SaveActionItemRequest, TeamMembersResponse } from "../../../core/models/ikigai-individual/ikigaiIndividual.model"
+import { CommonResponse, GetIkigaiSettingsResponse, IkigaiDataByEmpIDResponse, IkigaiRequest, MasterDataResponse, SaveActionItemRequest, SaveIkigaiSettingRequest, TeamMembersResponse } from "../../../core/models/ikigai-individual/ikigaiIndividual.model"
 import { ApiService } from '../../../core/services/api.service';
 import { HttpParams } from '@angular/common/http';
 import { ApiNames, HttpMethod } from '../../../Shared/shared.classes';
@@ -12,6 +12,14 @@ export class IkigaiService {
 
   GetMasterData() {
     return this.apiService.callApi<MasterDataResponse>(ApiNames.GetIkigaiMasterData, HttpMethod.GET);
+  }
+
+  SaveIkigaiSettings(data:SaveIkigaiSettingRequest) {
+    return this.apiService.callApi<CommonResponse>(ApiNames.SaveIkigaiSettings, HttpMethod.PUT, data);
+  }
+
+  GetIkigaiSettings() {
+    return this.apiService.callApi<GetIkigaiSettingsResponse>(ApiNames.GetIkigaiSettings, HttpMethod.GET);
   }
 
   GetTeamMembersByTeamID(paramsObj: Record<string, string | undefined> = {}) {

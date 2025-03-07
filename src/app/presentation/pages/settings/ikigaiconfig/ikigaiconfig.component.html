@@ -1,0 +1,24 @@
+<form [formGroup]="ikigaiSettingsform" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="firstname">Last Date For IKIGAI</label>
+            <input id="LastDateForIkigai" formControlName="LastDateForIkigai" type="text" maxlength="2"
+                (keypress)="isNumberKey($event)" />
+            @if(ikigaiSettingsform.controls.LastDateForIkigai.touched &&
+            ikigaiSettingsform.controls.LastDateForIkigai.invalid) {
+            <div class="error">
+                Please enter last date for ikigai
+            </div>
+            }
+        </div>
+        <button type="submit" [disabled]="loader" class="submit-button">Submit</button>
+    </div>
+    @if(this.loader){
+    <app-loader></app-loader>
+    }
+
+    @if(this.showSnackbar){
+    <app-snackbar SnackBarMessage={{snackbarMessge}} SnackBarType={{snackbarType}}
+        (closeSnackBar)="CloseSnackBar()"></app-snackbar>
+    }
+</form>

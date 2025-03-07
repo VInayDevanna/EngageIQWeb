@@ -14,6 +14,8 @@ export class ApiNames
   static readonly GetRoles = 'Role/GetRoles';
   static readonly SaveRoles = 'Role/SaveRole';
   static readonly SignalRTest = 'Test';
+  static readonly GetIkigaiSettings = 'Ikigai/GetIkigaiSettings';
+  static readonly SaveIkigaiSettings = 'Ikigai/SaveIkigaiSettings';
 }
 
 export class HttpMethod

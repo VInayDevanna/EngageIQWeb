@@ -43,6 +43,11 @@ export interface SaveActionItemRequest{
   actionItem:ActionItem[];
 }
 
+export interface SaveIkigaiSettingRequest{ 
+  //LoggedInUserEmpID: string;
+  lastDateForIkigai: number;
+}
+
 export interface ActionItem{
   actionItemID: string;
   categoryID: number;
@@ -67,6 +72,12 @@ export interface IkigaiRequest {
 }
 
 export interface CommonResponse {
+  isValid: boolean;
+  remarks: string;
+}
+
+export interface GetIkigaiSettingsResponse {
+  lastIkigaiDate: number;
   isValid: boolean;
   remarks: string;
 }

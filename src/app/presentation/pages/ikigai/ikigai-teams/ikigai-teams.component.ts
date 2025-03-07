@@ -92,7 +92,7 @@ export class IkigaiTeamsComponent implements OnInit {
   loader: boolean = false;
   isKigigaiDataAvailable = false;
   showIkigaiConfigScreen = false;
-  lastDayToCompleteIkigaiForCurrentMonth = 10;
+  lastDayToCompleteIkigaiForCurrentMonth = parseInt(localStorage.getItem('lastIkigaiDate') ?? '10');//default value
   noOfDaysLeftToCompleteIkigaiForCurrentMonth = this.getDaysLeftToCompleteIkigai();
   // Expose the enum to your template
   PanelList = PanelList;
